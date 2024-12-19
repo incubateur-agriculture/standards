@@ -1,6 +1,17 @@
+import 'dotenv/config'
+
 import { Collaborateur, Startup } from "../domain/types";
 import { getGristStartups, saveCollaborateurs, setStartupMembers } from "../infrastructure/gristClient";
 import axios from "axios";
+
+if (!process.env.GRIST_API_KEY || !process.env.GRIST_DOC_ID || !process.env.GRIST_URL) {
+    console.error('Missing environment variables', {
+        GRIST_URL: process.env.GRIST_URL,
+        GRIST_API_KEY: process.env.GRIST_API_KEY,
+        GRIST_DOC_ID: process.env.GRIST_DOC_ID
+    });
+    throw new Error('Missing environment variables');
+}
 
 interface StartupBeta {
     active_members: string[]
