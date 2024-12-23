@@ -1,7 +1,8 @@
 {
     "jobs": [
       {
-        "command": "0 9 * * 1 npm run sync-collaborateurs-startups"
+        "command": "0 9 * * 1 npm run sync-collaborateurs-startups",
+        "size": "S"
       }
     ]
   }
