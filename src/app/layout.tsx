@@ -59,11 +59,17 @@ export default async function RootLayout({
           <NextAppDirEmotionCacheProvider options={{ key: "css" }}>
             <MuiDsfrThemeProvider>
               <Header
-                brandTop={<>ANCT</>}
-                serviceTitle={"Audits techniques de l'incubateur de l'ANCT"}
+                className="pb-4"
+                brandTop={<>République<br/>Française</>}
+                operatorLogo={{
+                  imgUrl: "/assets/logos/anct.svg",
+                  alt: "Logo de l'Agence Nationale de la Cohésion des Territoires",
+                  orientation: "horizontal",
+                }}
+                serviceTitle={"Audits techniques - Incubateur des territoires - ANCT"}
                 homeLinkProps={{
                   href: "/",
-                  title: "Audits techniques - ANCT",
+                  title: "Audits techniques - Incubateur des Territoires - ANCT",
                 }}
                 quickAccessItems={[headerFooterDisplayItem]}
               />

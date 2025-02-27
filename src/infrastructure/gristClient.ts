@@ -1,27 +1,14 @@
 import axios from "axios";
-import { setupCache, buildMemoryStorage } from 'axios-cache-interceptor';
 
 import { GRIST } from "../app/constants";
 import { Collaborateur, Startup } from "@/domain/types";
 
 const { GRIST_URL, GRIST_API_KEY, GRIST_DOC_ID } = process.env;
 
-const apiClient = setupCache(
-  axios.create({
+const apiClient = axios.create({
     baseURL: GRIST_URL,
-    headers: { Authorization: `Bearer ${GRIST_API_KEY}` }
-  }),
-  {
-    storage: buildMemoryStorage(),
-    ttl: 96 * 60 * 60 * 1000, // 96 hours
-    interpretHeader: false, // Ignore cache headers
-    methods: ['get'], // Only cache GET requests
-    cachePredicate: {
-      // Continue using cache even if server error
-      statusCheck: (status) => status === 200 || (status >= 500 && status < 600)
-    }
-  }
-);
+    headers: { Authorization: `Bearer ${GRIST_API_KEY}`},
+});
 
 export async function getGristQuestions() {
     return (await apiClient.get(`/docs/${GRIST_DOC_ID}/tables/${GRIST.TABLES.QUESTIONS.ID}/records`, {
