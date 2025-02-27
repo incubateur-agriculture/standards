@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.2.14...v1.3.0) (2025-02-27)
+
+
+### Features
+
+* **cache:** caching in memory Grist response for a bit of read resiliency ([6f192fd](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/6f192fd18fd4b326b0e762e2ce5e724fe6d90a3f))
+
+
+### Bug Fixes
+
+* **cron:** job container size set to S ([6a64d42](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/6a64d4226f5d8b9c6338a3abfbeaae9fccfa6a8e))
+* **layout:** display right ANCT logo ([c9dde77](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/c9dde7756aba5e64cb03297b936668f3b02698b0))
+* **sync-cli:** fix env var loading ([49bd511](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/49bd511c6042327e61e5c3aed92dfd38429c0d4f))
+
 ## [1.2.14](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.2.13...v1.2.14) (2024-11-18)
 
 
