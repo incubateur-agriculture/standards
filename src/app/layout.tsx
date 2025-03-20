@@ -1,4 +1,4 @@
-import { Footer } from "@/ui/Footer";
+import { Footer } from "@/application/components/Footer";
 import { fr } from "@codegouvfr/react-dsfr";
 import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import Header from "@codegouvfr/react-dsfr/Header";
@@ -9,10 +9,10 @@ import { getHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getHtmlAtt
 import { Metadata } from "next";
 import Link from "next/link";
 import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
-import { ConsentBannerAndConsentManagement } from "../ui/consentManagement";
+import { ConsentBannerAndConsentManagement } from "../application/components/consentManagement";
 import { StartDsfr } from "./StartDsfr";
 import { defaultColorScheme } from "./defaultColorScheme";
-import { Matomo } from "@/ui/Matomo";
+import { Matomo } from "@/application/components/Matomo";
 
 export const metadata: Metadata = {
   title: {

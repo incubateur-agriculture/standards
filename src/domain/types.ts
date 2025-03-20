@@ -23,11 +23,26 @@ export interface Question {
     tooltip: string
     importance: IMPORTANCE_OPTION
     reponse: Reponse|null
+    previousReponse: Reponse|null
 }
 
 export interface Produit {
     id: number
     nom: string
+    startup?: string
+    statut?: string
+    typeProjet?: string
+    architecture?: string
+    languages?: string[]
+    description?: string
+    repository?: string
+    homepage?: string
+    dependances?: string[]
+    outilsAas?: string[]
+    hebergement?: string[]
+    frontend?: string[]
+    backend?: string[]
+    authentification?: string[]
 }
 
 export interface Audit {

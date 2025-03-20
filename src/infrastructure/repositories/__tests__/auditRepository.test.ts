@@ -1,11 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { getAudit } from '../auditRepository';
-import { getGristAudit, getGristProduit } from '../../gristClient';
+import { findAuditByHash } from '@/infrastructure/grist/repositories/auditsGristRepository';
 
 // Mock the gristClient functions
-vi.mock('../../gristClient', () => ({
-    getGristAudit: vi.fn(),
-    getGristProduit: vi.fn(),
+vi.mock('@/infrastructure/grist/repositories/auditsGristRepository', () => ({
+    findAuditByHash: vi.fn(),
 }));
 
 describe('auditRepository', () => {
@@ -17,44 +16,20 @@ describe('auditRepository', () => {
     it('should return null when auditHash is null', async () => {
         const result = await getAudit(null);
         expect(result).toBeNull();
-        expect(getGristAudit).not.toHaveBeenCalled();
-        expect(getGristProduit).not.toHaveBeenCalled();
+        expect(findAuditByHash).not.toHaveBeenCalled();
     });
 
-    it('should return null when gristAudit is not found', async () => {
-        vi.mocked(getGristAudit).mockResolvedValue(null);
+    it('should return null when audit is not found', async () => {
+        vi.mocked(findAuditByHash).mockResolvedValue(null);
 
         const result = await getAudit('non-existent-hash');
         
         expect(result).toBeNull();
-        expect(getGristAudit).toHaveBeenCalledWith('non-existent-hash');
-        expect(getGristProduit).not.toHaveBeenCalled();
+        expect(findAuditByHash).toHaveBeenCalledWith('non-existent-hash');
     });
 
-    it('should return formatted audit when both gristAudit and gristProduit are found', async () => {
-        const mockGristAudit = {
-            id: 123,
-            fields: {
-                Date_comite_d_investissment: 1609459200, // 2021-01-01
-                Cloture: true,
-                Cloture_le: 1609545600, // 2021-01-02
-                Produit: 'product-ref-1'
-            }
-        };
-
-        const mockGristProduit = {
-            id: 456,
-            fields: {
-                Nom: 'Test Product'
-            }
-        };
-
-        vi.mocked(getGristAudit).mockResolvedValue(mockGristAudit);
-        vi.mocked(getGristProduit).mockResolvedValue(mockGristProduit);
-
-        const result = await getAudit('valid-hash');
-
-        expect(result).toEqual({
+    it('should return audit when found', async () => {
+        const mockAudit = {
             id: 123,
             dateComiteInvestissement: new Date('2021-01-01T00:00:00.000Z'),
             cloture: true,
@@ -63,17 +38,20 @@ describe('auditRepository', () => {
                 id: 456,
                 nom: 'Test Product'
             }
-        });
+        };
 
-        expect(getGristAudit).toHaveBeenCalledWith('valid-hash');
-        expect(getGristProduit).toHaveBeenCalledWith('product-ref-1');
+        vi.mocked(findAuditByHash).mockResolvedValue(mockAudit);
+
+        const result = await getAudit('valid-hash');
+
+        expect(result).toEqual(mockAudit);
+        expect(findAuditByHash).toHaveBeenCalledWith('valid-hash');
     });
 
     it('should handle error cases gracefully', async () => {
-        vi.mocked(getGristAudit).mockRejectedValue(new Error('Grist API error'));
+        vi.mocked(findAuditByHash).mockRejectedValue(new Error('API error'));
 
-        await expect(getAudit('error-hash')).rejects.toThrow('Grist API error');
-        expect(getGristAudit).toHaveBeenCalledWith('error-hash');
-        expect(getGristProduit).not.toHaveBeenCalled();
+        await expect(getAudit('error-hash')).rejects.toThrow('API error');
+        expect(findAuditByHash).toHaveBeenCalledWith('error-hash');
     });
 }); 

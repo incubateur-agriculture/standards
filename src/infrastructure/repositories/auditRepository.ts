@@ -1,30 +1,20 @@
 'use server'
 
 import { Audit } from "@/domain/types";
-import { getGristAudit, getGristProduit } from "../gristClient";
+import { findAuditByHash, findPreviousAuditByHash } from "@/infrastructure/grist/repositories/auditsGristRepository";
 
 export async function getAudit(auditHash: string|null): Promise<Audit|null> {
-
     if (!auditHash) {
         return null;
     }
 
-    const gristAudit = await getGristAudit(auditHash);
+    return findAuditByHash(auditHash);
+}
 
-    if (!gristAudit) {
+export async function getPreviousAudit(produitId: number, auditHash: string|null): Promise<Audit|null> {
+    if (!auditHash) {
         return null;
     }
 
-    const gristProduit = await getGristProduit(gristAudit.fields.Produit);
-
-    return {
-        id: gristAudit.id,
-        dateComiteInvestissement: new Date(gristAudit.fields.Date_comite_d_investissment * 1000),
-        cloture: gristAudit.fields.Cloture,
-        clotureLe: new Date(gristAudit.fields.Cloture_le * 1000),
-        produit: {
-            id: gristProduit.id,
-            nom: gristProduit.fields.Nom
-        }
-    }
+    return findPreviousAuditByHash(produitId, auditHash);
 }

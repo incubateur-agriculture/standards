@@ -1,13 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { getReponses, getReponse, saveReponse, reponseId, saveReponses } from '../reponsesRepository'
-import { getGristReponse, getGristReponses, saveGristReponses } from '../../gristClient'
+import { findReponsesByAuditId, findReponseByAuditAndQuestionId, saveReponseRecords } from '@/infrastructure/grist/repositories/reponsesGristRepository'
 import { Reponse, REPONSE_OPTIONS } from '@/domain/types'
 
 // Mock dependencies
-vi.mock('../../gristClient', () => ({
-    getGristReponses: vi.fn(),
-    getGristReponse: vi.fn(),
-    saveGristReponses: vi.fn()
+vi.mock('@/infrastructure/grist/repositories/reponsesGristRepository', () => ({
+    findReponsesByAuditId: vi.fn(),
+    findReponseByAuditAndQuestionId: vi.fn(),
+    saveReponseRecords: vi.fn()
 }))
 
 describe('reponsesRepository', () => {
@@ -21,28 +21,9 @@ describe('reponsesRepository', () => {
     })
 
     describe('getReponses', () => {
-        it('should transform Grist responses into Reponse objects', async () => {
+        it('should get responses for an audit', async () => {
             // Arrange
-            const mockGristReponses = [
-                {
-                    id: 1,
-                    fields: {
-                        Audit: 123,
-                        Question: 456,
-                        Reponse: 'Oui',
-                        Commentaires_Details: 'Test comment',
-                        Pourcentage: 75
-                    }
-                }
-            ]
-
-            vi.mocked(getGristReponses).mockResolvedValue(mockGristReponses)
-
-            // Act
-            const result = await getReponses(123)
-
-            // Assert
-            expect(result).toEqual([
+            const mockReponses = [
                 {
                     id: 1,
                     auditId: 123,
@@ -51,49 +32,51 @@ describe('reponsesRepository', () => {
                     commentaire: 'Test comment',
                     pourcentage: 75
                 }
-            ])
+            ]
+
+            vi.mocked(findReponsesByAuditId).mockResolvedValue(mockReponses)
+
+            // Act
+            const result = await getReponses(123)
+
+            // Assert
+            expect(result).toEqual(mockReponses)
+            expect(findReponsesByAuditId).toHaveBeenCalledWith(123)
         })
 
         it('should handle empty responses', async () => {
             // Arrange
-            vi.mocked(getGristReponses).mockResolvedValue([])
+            vi.mocked(findReponsesByAuditId).mockResolvedValue([])
 
             // Act
             const result = await getReponses(123)
 
             // Assert
             expect(result).toEqual([])
+            expect(findReponsesByAuditId).toHaveBeenCalledWith(123)
         })
     })
 
     describe('getReponse', () => {
         it('should get a single response', async () => {
             // Arrange
-            const mockGristReponse = {
+            const mockReponse = {
                 id: 1,
-                fields: {
-                    Audit: 123,
-                    Question: 456,
-                    Reponse: 'Yes',
-                    Commentaires_Details: 'Test comment',
-                    Pourcentage: 75
-                }
+                auditId: 123,
+                questionId: 456,
+                reponse: REPONSE_OPTIONS.OUI,
+                commentaire: 'Test comment',
+                pourcentage: 75
             }
 
-            vi.mocked(getGristReponse).mockResolvedValue(mockGristReponse)
+            vi.mocked(findReponseByAuditAndQuestionId).mockResolvedValue(mockReponse)
 
             // Act
             const result = await getReponse(123, 456)
 
             // Assert
-            expect(result).toEqual({
-                id: 1,
-                auditId: 123,
-                questionId: 456,
-                reponse: 'Yes',
-                commentaire: 'Test comment',
-                pourcentage: 75
-            })
+            expect(result).toEqual(mockReponse)
+            expect(findReponseByAuditAndQuestionId).toHaveBeenCalledWith(123, 456)
         })
     })
 
@@ -124,33 +107,8 @@ describe('reponsesRepository', () => {
             await vi.runAllTimersAsync()
 
             // Assert
-            expect(vi.mocked(saveGristReponses)).toHaveBeenCalledTimes(1)
-            expect(vi.mocked(saveGristReponses)).toHaveBeenCalledWith(
-                expect.arrayContaining([
-                    {
-                        require: {
-                            Audit: 123,
-                            Question: 456
-                        },
-                        fields: {
-                            Reponse: 'Oui',
-                            Commentaires_Details: 'Test',
-                            Pourcentage: null
-                        }
-                    },
-                    {
-                        require: {
-                            Audit: 123,
-                            Question: 457
-                        },
-                        fields: {
-                            Reponse: 'Non',
-                            Commentaires_Details: 'Test 2',
-                            Pourcentage: 50
-                        }
-                    }
-                ])
-            )
+            expect(vi.mocked(saveReponseRecords)).toHaveBeenCalledTimes(1)
+            expect(vi.mocked(saveReponseRecords)).toHaveBeenCalledWith([mockReponse1, mockReponse2])
         })
 
         it('should force save when reaching more than 40 responses', async () => {
@@ -169,12 +127,12 @@ describe('reponsesRepository', () => {
             }
 
             // Assert
-            expect(vi.mocked(saveGristReponses)).toHaveBeenCalled()
+            expect(vi.mocked(saveReponseRecords)).toHaveBeenCalled()
         })
     })
 
     describe('saveReponses', () => {
-        it('should transform and save responses correctly', async () => {
+        it('should save responses directly', async () => {
             // Arrange
             const responses: Reponse[] = [
                 {
@@ -190,19 +148,7 @@ describe('reponsesRepository', () => {
             await saveReponses(responses)
 
             // Assert
-            expect(saveGristReponses).toHaveBeenCalledWith([
-                {
-                    require: {
-                        Audit: 123,
-                        Question: 456
-                    },
-                    fields: {
-                        Reponse: 'Oui',
-                        Commentaires_Details: 'Test',
-                        Pourcentage: null
-                    }
-                }
-            ])
+            expect(saveReponseRecords).toHaveBeenCalledWith(responses)
         })
 
         it('should handle reset flag correctly', async () => {
@@ -222,19 +168,7 @@ describe('reponsesRepository', () => {
             await saveReponses(responses)
 
             // Assert
-            expect(saveGristReponses).toHaveBeenCalledWith([
-                {
-                    require: {
-                        Audit: 123,
-                        Question: 456
-                    },
-                    fields: {
-                        Reponse: null,
-                        Commentaires_Details: null,
-                        Pourcentage: null
-                    }
-                }
-            ])
+            expect(saveReponseRecords).toHaveBeenCalledWith(responses)
         })
     })
 

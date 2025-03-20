@@ -1,34 +1,14 @@
 'use server'
 
 import { Reponse } from "@/domain/types";
-import { getGristReponse, getGristReponses, saveGristReponses } from "../gristClient";
+import { findReponseByAuditAndQuestionId, findReponsesByAuditId, saveReponseRecords } from "@/infrastructure/grist/repositories/reponsesGristRepository";
 
 export async function getReponses(auditId: number): Promise<Reponse[]> {
-
-    const gristReponses = await getGristReponses(auditId);
-
-    return gristReponses.map((gristReponse: any) => ({
-        id: gristReponse.id,
-        auditId: gristReponse.fields.Audit,
-        questionId: gristReponse.fields.Question,
-        reponse: gristReponse.fields.Reponse,
-        commentaire: gristReponse.fields.Commentaires_Details,
-        pourcentage: gristReponse.fields.Pourcentage,
-    }));
+    return findReponsesByAuditId(auditId);
 }
 
 export async function getReponse(auditId: number, questionId: number): Promise<Reponse> {
-
-    const gristReponse = await getGristReponse(auditId, questionId);
-
-    return {
-        id: gristReponse.id,
-        auditId: gristReponse.fields.Audit,
-        questionId: gristReponse.fields.Question,
-        reponse: gristReponse.fields.Reponse,
-        commentaire: gristReponse.fields.Commentaires_Details,
-        pourcentage: gristReponse.fields.Pourcentage,
-    };
+    return findReponseByAuditAndQuestionId(auditId, questionId);
 }
 
 export async function saveReponse(reponse: Reponse) {
@@ -69,20 +49,5 @@ async function naiveSaveWithPacking(reponse?: Reponse) {
 }
 
 export async function saveReponses(reponses: Reponse[]) {
-    saveGristReponses(reponses.map((reponse) => ({
-        require: {
-            "Audit": reponse.auditId,
-            "Question": reponse.questionId,
-        },
-        fields: {
-            ... ((reponse.reponse != null || reponse.reset) && {
-                "Reponse": reponse.reponse,
-            }),
-            ... ((reponse.commentaire != null || reponse.reset) && {
-                "Commentaires_Details": reponse.commentaire,
-            }),
-            "Pourcentage": reponse.pourcentage,
-        }
-    })))
-    
+    await saveReponseRecords(reponses);
 }

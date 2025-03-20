@@ -5,6 +5,7 @@ import type { Audit, Question as QuestionType, Reponse } from "@/domain/types"
 import { Badge } from "@codegouvfr/react-dsfr/Badge"
 import { Card } from "@codegouvfr/react-dsfr/Card"
 import type { AlertProps } from "@codegouvfr/react-dsfr/Alert"
+import PreviousResponse from "./PreviousResponse"
 
 export default function QuestionReadonly({ audit, question }: Readonly<{audit: Audit, question: QuestionType }>) {
     const badgeForReponse = (reponse: Reponse | null): JSX.Element => {
@@ -67,6 +68,9 @@ export default function QuestionReadonly({ audit, question }: Readonly<{audit: A
                             {badgeForReponse(question.reponse)}
                             {question.reponse?.commentaire && (
                                 <p className="whitespace-pre-wrap mt-2.5">{question.reponse?.commentaire}</p>
+                            )}
+                            { question.previousReponse && (
+                                <PreviousResponse previousReponse={question.previousReponse} />
                             )}
                         </div>
                     )}

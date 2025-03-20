@@ -1,11 +1,12 @@
 import { getAudit } from "@/infrastructure/repositories/auditRepository";
 import { getQuestions } from "@/infrastructure/repositories/questionRepository";
-import Audit from "@/ui/Audit";
+import Audit from "@/application/components/Audit";
+import Produit from "@/application/components/Produit";
+import { getProduit } from "@/infrastructure/repositories/produitRepository";
 
 export default async function Page({ params }: Readonly<{ params: Promise<{ auditHash: string|null }> }>) {
   const auditHash = (await params).auditHash; 
   const audit = await getAudit(auditHash ?? "");
-
   if (!audit) {
     return (
       <p>
@@ -14,8 +15,9 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ audi
       </p>
     );
   }
+  const produit = await getProduit(audit.produit.id);
 
-  const categories = await getQuestions(audit.id);
+  const categories = await getQuestions(audit.produit.id, auditHash);
 
   if (!categories) {
     return <p>Chargement des questions...</p>;
@@ -23,11 +25,19 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ audi
 
   return (
     <>
+      {produit && <Produit produit={produit} />}
+
       <h2>Audit technique du produit {audit.produit.nom}</h2>
-      <p>
-        Comité d&apos;investissement prévu pour le{" "}
-        {audit.dateComiteInvestissement.toLocaleDateString("fr")}
-      </p>
+      {audit.dateComiteInvestissement?.getTime() > 0 ? (
+        <p>
+          Comité d&apos;investissement prévu pour le{" "}
+          {audit.dateComiteInvestissement.toLocaleDateString("fr")}
+        </p>
+      ) : (
+        <p>
+          Comité d&apos;investissement non prévu
+        </p>
+      )}
       <p className="fr-text--md fr-mb-2w">
         Ce questionnaire vise à recueillir des informations techniques sur le produit. Une réponse positive (Oui) est généralement attendue, mais une réponse négative (Non) peut être tout à fait appropriée en fonction du contexte. Dans ce cas, merci de préciser les raisons dans les commentaires.
       </p>

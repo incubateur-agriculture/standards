@@ -1,0 +1,111 @@
+# Project Rules
+
+## Code Style & Formatting
+- Use TypeScript for all new code
+- Use 2 spaces for indentation
+- Maximum line length: 100 characters
+- Use single quotes for strings
+- Add trailing commas in objects and arrays
+- No unused variables or imports
+- No console.logs in production code
+
+## Architecture & DDD
+- Follow Domain-Driven Design principles
+- Organize code into three main layers:
+  - `app/`: NextJS default folder (pages, routes)
+  - `application/`: Application layer (UI components)
+  - `domain/`: Domain layer (business logic, entities, value objects)
+  - `infrastructure/`: Infrastructure layer (external services, APIs, databases)
+- Keep domain logic pure and framework-agnostic
+- Use interfaces to define domain contracts
+- Implement repositories in infrastructure layer
+- Keep dependencies flowing inward (domain → application → infrastructure)
+- Domain entities should be immutable
+- Use value objects for domain concepts
+
+## File & Directory Structure
+- Use feature-based folder structure within each layer
+- Place UI components in `app/components/`
+- Place domain logic in `domain/{bounded-context}/`
+- Place infrastructure code in `infrastructure/{module}/`
+- Place hooks in `app/hooks/`
+- Place types in `domain/types/`
+- Place utilities in `app/utils/`
+- Place API routes in `app/api/`
+- Place tests next to the files they test with `.test.ts(x)` extension
+- Group related features by bounded context
+- Keep shared domain logic in `domain/shared/`
+- Place DTOs in `infrastructure/dtos/`
+- Place repositories implementations in `infrastructure/repositories/`
+
+## Naming Conventions
+- Use PascalCase for component files and component names
+- Use camelCase for variables, functions, and instances
+- Use UPPER_SNAKE_CASE for constants
+- Prefix event handler functions with 'handle'
+- Suffix custom hooks with 'use'
+- Use descriptive names that reflect purpose
+
+## Components
+- One component per file
+- Keep components small and focused
+- Extract reusable logic into custom hooks
+- Use TypeScript interfaces for props
+- Default export for components
+- Props should be explicitly typed
+
+## Styling
+- Use TailwindCSS for styling
+- Use `class:` syntax over ternary operators for conditional classes
+- Follow mobile-first responsive design
+- Use semantic color variables from tailwind config
+- Keep styling classes organized and readable
+
+## State Management
+- Use React Query for server state
+- Use React Context for global UI state
+- Prefer local state when possible
+- Avoid prop drilling
+
+## Testing
+- Write unit tests with Vitest
+- Write E2E tests with Playwright
+- Test components in isolation
+- Mock external dependencies
+- Aim for meaningful test coverage
+
+## Accessibility
+- Use semantic HTML elements
+- Include ARIA labels where needed
+- Ensure keyboard navigation works
+- Maintain proper heading hierarchy
+- Support screen readers
+- Ensure sufficient color contrast
+
+## Performance
+- Use Next.js Image component for images
+- Implement proper loading states
+- Use code splitting where beneficial
+- Optimize bundle size
+- Implement proper caching strategies
+
+## Git Practices
+- Write meaningful commit messages
+- Use feature branches
+- Keep PRs focused and manageable
+- Review code before merging
+- Keep main/master branch stable
+
+## Error Handling
+- Implement proper error boundaries
+- Use typed error handling
+- Provide meaningful error messages
+- Log errors appropriately
+- Graceful fallbacks for errors
+
+## Documentation
+- Document complex logic
+- Include JSDoc comments for functions
+- Keep README up to date
+- Document environment setup
+- Include examples where helpful

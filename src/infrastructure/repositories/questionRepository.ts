@@ -1,36 +1,34 @@
 'use server'
 
 import { Categorie, Reponse } from "@/domain/types";
-import { getGristQuestions } from "../gristClient";
 import { getReponses } from "./reponsesRepository";
+import { findQuestions } from "@/infrastructure/grist/repositories/questionsGristRepository";
+import { getAudit, getPreviousAudit } from "./auditRepository";
 
-export async function getQuestions(auditId: number): Promise<Categorie[]> {
+export async function getQuestions(produitId: number, auditHash: string|null): Promise<Categorie[]> {
 
-    const gristQuestions = await getGristQuestions();
-    const reponses: Record<string, Reponse> = (await getReponses(auditId)).reduce((acc: Record<string, Reponse>, reponse) => {
+    const audit = await getAudit(auditHash);
+    if (!audit) {
+        return [];
+    }
+
+    const reponses: Record<string, Reponse> = (await getReponses(audit.id)).reduce((acc: Record<string, Reponse>, reponse) => {
         return {
             ...acc,
             [reponse.questionId]: reponse
         }
     }, {});
 
-    return Object.values(gristQuestions.records.reduce((acc: Record<string, Categorie>, gristQuestion: any) => {
-        return {
-            ...acc,
-            [gristQuestion.fields.Categorie]: {
-                ...acc[gristQuestion.fields.Categorie],
-                titre: gristQuestion.fields.Categorie,
-                questions: [
-                    ... (acc[gristQuestion.fields.Categorie] ? acc[gristQuestion.fields.Categorie].questions : []),
-                    {
-                        id: gristQuestion.id,
-                        question: gristQuestion.fields.Question,
-                        importance: gristQuestion.fields.Importance,
-                        tooltip: gristQuestion.fields.Tooltip,
-                        reponse: reponses[gristQuestion.id],
-                    }
-                ]
+    let previousReponses: Record<string, Reponse> = {};
+    const previousAudit = await getPreviousAudit(produitId, auditHash);
+    if (previousAudit) {
+        previousReponses = (await getReponses(previousAudit.id)).reduce((acc: Record<string, Reponse>, reponse) => {
+            return {
+                ...acc,
+                [reponse.questionId]: reponse
             }
-        }
-    }, {}));
+        }, {});
+    }
+
+    return findQuestions(reponses, previousReponses);
 }

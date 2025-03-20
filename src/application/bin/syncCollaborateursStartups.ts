@@ -1,8 +1,9 @@
 import 'dotenv/config'
 
-import { Collaborateur, Startup } from "../domain/types";
-import { getGristStartups, saveCollaborateurs, setStartupMembers } from "../infrastructure/gristClient";
+import { Collaborateur, Startup } from "@/domain/types";
 import axios from "axios";
+import { getGristStartups, setStartupMembers } from '@/infrastructure/grist/repositories/startupsGristRepository';
+import { saveCollaborateurs } from '@/infrastructure/grist/repositories/collaborateursGristRepository';
 
 if (!process.env.GRIST_API_KEY || !process.env.GRIST_DOC_ID || !process.env.GRIST_URL) {
     console.error('Missing environment variables', {
