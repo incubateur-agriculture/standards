@@ -50,13 +50,13 @@ export default function OutilsSelector({
       <div className="fr-col-12 fr-col-md-6">
         <MultiSelectWithChips
           id="outils-mutualises"
-          label="Outils mutualisés"
+          label="Outils mutualisés de l'incubateur"
           options={outilsMutualisesOptions}
           selectedValues={produit?.outilsMutualises || []}
           onChange={onOutilsMutualisesChange}
           disabled={disabled}
           loading={loading}
-          hint="Sélectionnez les outils mutualisés utilisés"
+          hint="Sélectionnez les outils de l'incubateur utilisés dans le contexte de ce produit"
         />
       </div>
       <div className="fr-col-12 fr-col-md-6">
@@ -68,7 +68,7 @@ export default function OutilsSelector({
           onChange={onOutilsNonMutualisesChange}
           disabled={disabled}
           loading={loading}
-          hint="Sélectionnez les outils non mutualisés utilisés"
+          hint="Sélectionnez les autres outils utilisés dans le contexte de ce produit"
         />
       </div>
     </div>
