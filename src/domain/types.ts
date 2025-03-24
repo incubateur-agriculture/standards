@@ -38,11 +38,17 @@ export interface Produit {
     repository?: string
     homepage?: string
     dependances?: string[]
-    outilsAas?: string[]
+    outilsMutualises?: string[]
+    outilsNonMutualises?: string[]
     hebergement?: string[]
     frontend?: string[]
     backend?: string[]
     authentification?: string[]
+}
+
+export interface ColumnOption {
+    id: string
+    label: string
 }
 
 export interface Audit {

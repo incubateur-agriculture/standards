@@ -2,7 +2,7 @@ import { getAudit } from "@/infrastructure/repositories/auditRepository";
 import { getQuestions } from "@/infrastructure/repositories/questionRepository";
 import Audit from "@/application/components/Audit";
 import Produit from "@/application/components/Produit";
-import { getProduit } from "@/infrastructure/repositories/produitRepository";
+import { getProduitById } from "@/infrastructure/repositories/produitRepository";
 
 export default async function Page({ params }: Readonly<{ params: Promise<{ auditHash: string|null }> }>) {
   const auditHash = (await params).auditHash; 
@@ -15,7 +15,7 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ audi
       </p>
     );
   }
-  const produit = await getProduit(audit.produit.id);
+  const produit = await getProduitById(audit.produit.id);
 
   const categories = await getQuestions(audit.produit.id, auditHash);
 

@@ -1,10 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { getAudit } from '../auditRepository';
-import { findAuditByHash } from '@/infrastructure/grist/repositories/auditsGristRepository';
+import { getAudit, getPreviousAudit } from '../auditRepository';
+import { findAuditByHash, findPreviousAuditByHash } from '@/infrastructure/grist/repositories/auditsGristRepository';
 
 // Mock the gristClient functions
 vi.mock('@/infrastructure/grist/repositories/auditsGristRepository', () => ({
     findAuditByHash: vi.fn(),
+    findPreviousAuditByHash: vi.fn(),
 }));
 
 describe('auditRepository', () => {
@@ -53,5 +54,58 @@ describe('auditRepository', () => {
 
         await expect(getAudit('error-hash')).rejects.toThrow('API error');
         expect(findAuditByHash).toHaveBeenCalledWith('error-hash');
+    });
+
+    // Tests for getPreviousAudit
+    describe('getPreviousAudit', () => {
+        it('should return null when auditHash is null', async () => {
+            const result = await getPreviousAudit(123, null);
+            expect(result).toBeNull();
+            expect(findPreviousAuditByHash).not.toHaveBeenCalled();
+        });
+
+        it('should return previous audit when found', async () => {
+            const produitId = 456;
+            const auditHash = 'valid-hash';
+            const mockPreviousAudit = {
+                id: 122,
+                dateComiteInvestissement: new Date('2020-12-01T00:00:00.000Z'),
+                cloture: true,
+                clotureLe: new Date('2020-12-02T00:00:00.000Z'),
+                produit: {
+                    id: produitId,
+                    nom: 'Test Product'
+                }
+            };
+
+            vi.mocked(findPreviousAuditByHash).mockResolvedValue(mockPreviousAudit);
+
+            const result = await getPreviousAudit(produitId, auditHash);
+
+            expect(result).toEqual(mockPreviousAudit);
+            expect(findPreviousAuditByHash).toHaveBeenCalledWith(produitId, auditHash);
+        });
+
+        it('should return null when no previous audit is found', async () => {
+            const produitId = 456;
+            const auditHash = 'first-audit-hash';
+            
+            vi.mocked(findPreviousAuditByHash).mockResolvedValue(null);
+
+            const result = await getPreviousAudit(produitId, auditHash);
+
+            expect(result).toBeNull();
+            expect(findPreviousAuditByHash).toHaveBeenCalledWith(produitId, auditHash);
+        });
+
+        it('should handle error cases gracefully', async () => {
+            const produitId = 456;
+            const auditHash = 'error-hash';
+            
+            vi.mocked(findPreviousAuditByHash).mockRejectedValue(new Error('API error'));
+
+            await expect(getPreviousAudit(produitId, auditHash)).rejects.toThrow('API error');
+            expect(findPreviousAuditByHash).toHaveBeenCalledWith(produitId, auditHash);
+        });
     });
 }); 
