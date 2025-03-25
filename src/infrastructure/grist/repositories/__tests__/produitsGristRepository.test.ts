@@ -35,7 +35,7 @@ describe('produitsGristRepository', () => {
                 `/tables/${GRIST.PRODUITS.ID}/records`,
                 {
                     params: {
-                        filter: `{"id"}:["1"]}`
+                        filter: `{"id":[1]}`
                     }
                 }
             )
