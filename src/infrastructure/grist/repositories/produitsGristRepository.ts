@@ -17,13 +17,14 @@ export async function findAllProduits(): Promise<Produit[]> {
     return gristProduits.map(gristProduit => mapGristProduitToProduit(gristProduit))
 }
 
-async function getGristProduit(produitId: number): Promise<GristProduit|null> {
+export async function getGristProduit(produitId: number) {
     return (await apiClient.get(`/tables/${GRIST.PRODUITS.ID}/records`, {
         params: {
-            filter: `{"${GRIST.PRODUITS.FIELDS.ID}":["${produitId}"]}`
+            filter: `{"id":[${produitId}]}`
         }
     })).data.records[0] ?? null
-}
+} 
+
 
 async function getGristProduits(): Promise<GristProduit[]> {
     return (await apiClient.get(`/tables/${GRIST.PRODUITS.ID}/records`))

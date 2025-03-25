@@ -1,6 +1,6 @@
 export const GRIST = {
     QUESTIONS: {
-        ID: "Table1",
+        ID: "AuditsQuestions",
         FIELDS: {
             CATEGORIE: "Categorie",
             QUESTION: "Question",
@@ -10,9 +10,8 @@ export const GRIST = {
         }
     },
     AUDITS: {
-        ID: "Audits",
+        ID: "AuditsAudits",
         FIELDS: {
-            ID: "ID2",
             HASH: "Hash",
             PRODUIT: "Produit",
             COMITE_INVESTISSEMENT: "Date_comite_d_investissment",
@@ -21,7 +20,7 @@ export const GRIST = {
         }
     },
     REPONSES: {
-        ID: "Reponses",
+        ID: "AuditsReponses",
         FIELDS: {
             AUDIT: "Audit",
             QUESTION: "Question",
@@ -31,9 +30,8 @@ export const GRIST = {
         }
     },
     PRODUITS: {
-        ID: "Produits",
+        ID: "AuditsProduits",
         FIELDS: {
-            ID: "ID2",
             NOM: "Nom",
             STARTUP: "Startup",
             STATUT: "Statut",
@@ -50,21 +48,6 @@ export const GRIST = {
             FRONTEND: "Frontend",
             BACKEND: "Backend",
             AUTHENTIFICATION: "Authentification"
-        }
-    },
-    STARTUPS: {
-        ID: "Startups",
-        FIELDS: {
-            ID_BETA: "Id_Beta",
-            MEMBRES: "Membres"
-        }
-    },
-    COLLABORATEURS: {
-        ID: "Collaborateurs",
-        FIELDS: {
-            ID_BETA: "idBeta",
-            NOM_COMPLET: "Nom_complet",
-            DOMAINE: "Domaine"
         }
     }
 }; 

@@ -2,6 +2,7 @@ import { Audit } from "@/domain/types";
 import { apiClient } from "@/infrastructure/grist/client/gristApiClient";
 import { GRIST } from "@/infrastructure/grist/constants/gristConstants";
 import { mapGristAuditToAudit } from "@/infrastructure/grist/mappers/auditMapper";
+import { getGristProduit } from "@/infrastructure/grist/repositories/produitsGristRepository";
 
 export async function findAuditByHash(auditHash: string): Promise<Audit|null> {
     const gristAudit = await getGristAudit(auditHash);
@@ -9,6 +10,7 @@ export async function findAuditByHash(auditHash: string): Promise<Audit|null> {
         return null;
     }
     const gristProduit = await getGristProduit(gristAudit.fields[GRIST.AUDITS.FIELDS.PRODUIT]);
+
     return mapGristAuditToAudit(gristAudit, gristProduit);
 }
 
@@ -46,11 +48,3 @@ async function getPreviousGristAudit(produitId: number, auditHash: string) {
 
     return audits[currentAuditIndex - 1] ?? null;
 }
-
-async function getGristProduit(produitId: number) {
-    return (await apiClient.get(`/tables/${GRIST.PRODUITS.ID}/records`, {
-        params: {
-            filter: `{"${GRIST.PRODUITS.FIELDS.ID}":["${produitId}"]}`
-        }
-    })).data.records[0] ?? null
-} 

@@ -7,6 +7,7 @@ import { getProduitById } from "@/infrastructure/repositories/produitRepository"
 export default async function Page({ params }: Readonly<{ params: Promise<{ auditHash: string|null }> }>) {
   const auditHash = (await params).auditHash; 
   const audit = await getAudit(auditHash ?? "");
+
   if (!audit) {
     return (
       <p>
@@ -16,7 +17,6 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ audi
     );
   }
   const produit = await getProduitById(audit.produit.id);
-
   const categories = await getQuestions(audit.produit.id, auditHash);
 
   if (!categories) {

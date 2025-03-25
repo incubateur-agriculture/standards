@@ -6,3 +6,11 @@ export const apiClient = axios.create({
     baseURL: `${GRIST_URL}/docs/${GRIST_DOC_ID}`,
     headers: { Authorization: `Bearer ${GRIST_API_KEY}`},
 });
+
+apiClient.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        console.error("Grist API Error:", error.response?.data);
+        throw error;
+    }
+);

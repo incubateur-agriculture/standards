@@ -72,16 +72,6 @@ Lorsque la merge request est fusionnée, le déploiement sur l'environnement de 
 
 Une fois les tests en staging validés, [accédez aux pipelines](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/-/pipelines) et cliquez sur le bouton "play" pour créer une release, générer un tag et déclencher le déploiement en production.
 
-## Outils
-
-### Synchronisation des collaborateurs et startups depuis beta.gouv.fr
-
-Ce script extrait les données de l'API de beta.gouv.fr et les pousse vers le document Grist configuré. [Tutoriel vidéo](https://www.loom.com/share/cc349d78023547d1b3ea4173472e0325)
-
-```bash
-npm run sync-collaborateurs-startups
-```
-
 ## Contribution
 
 Avant de contribuer, installez et configurez [Talisman](https://github.com/thoughtworks/talisman) en pre-commit pour vous protéger contre les divulgation malencontreuses de secrets.
