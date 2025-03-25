@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.1](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.4.0...v1.4.1) (2025-03-25)
+
+
+### Bug Fixes
+
+* **tests:** units tests were not failing CI ([9c9963a](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/9c9963aff15e61bf4de3e8378e17baa9af2b8706))
+
 ## [1.4.0](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.3.1...v1.4.0) (2025-03-24)
 
 
