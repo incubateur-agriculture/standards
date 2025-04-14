@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.2](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.4.1...v1.4.2) (2025-04-14)
+
+
+### Bug Fixes
+
+* **error-handling:** correctly handle errors when backend is down ([334d460](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/334d4602dbbd4a117dda7e52dd9e8741efc24fbb))
+* **question:** promise type ([ec00993](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/ec009938658414cc41db64e1a7b695bfea747c95))
+
 ## [1.4.1](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.4.0...v1.4.1) (2025-03-25)
 
 
