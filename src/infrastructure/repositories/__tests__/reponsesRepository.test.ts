@@ -13,11 +13,6 @@ vi.mock('@/infrastructure/grist/repositories/reponsesGristRepository', () => ({
 describe('reponsesRepository', () => {
     beforeEach(() => {
         vi.clearAllMocks()
-        vi.useFakeTimers()
-    })
-
-    afterEach(() => {
-        vi.useRealTimers()
     })
 
     describe('getReponses', () => {
@@ -80,10 +75,10 @@ describe('reponsesRepository', () => {
         })
     })
 
-    describe('saveReponse with packing mechanism', () => {
-        it('should pack multiple responses and save them together', async () => {
+    describe('saveReponse', () => {
+        it('should save a single response', async () => {
             // Arrange
-            const mockReponse1: Reponse = {
+            const mockReponse: Reponse = {
                 auditId: 123,
                 questionId: 456,
                 reponse: REPONSE_OPTIONS.OUI,
@@ -91,48 +86,16 @@ describe('reponsesRepository', () => {
                 pourcentage: null
             }
 
-            const mockReponse2: Reponse = {
-                auditId: 123,
-                questionId: 457,
-                reponse: REPONSE_OPTIONS.NON,
-                commentaire: 'Test 2',
-                pourcentage: 50
-            }
-
             // Act
-            await saveReponse(mockReponse1)
-            await saveReponse(mockReponse2)
-
-            // Fast-forward timer
-            await vi.runAllTimersAsync()
+            await saveReponse(mockReponse)
 
             // Assert
-            expect(vi.mocked(saveReponseRecords)).toHaveBeenCalledTimes(1)
-            expect(vi.mocked(saveReponseRecords)).toHaveBeenCalledWith([mockReponse1, mockReponse2])
-        })
-
-        it('should force save when reaching more than 40 responses', async () => {
-            // Arrange
-            const responses: Reponse[] = Array.from({ length: 42 }, (_, i) => ({
-                auditId: 123,
-                questionId: i,
-                reponse: REPONSE_OPTIONS.OUI,
-                commentaire: `Test ${i}`,
-                pourcentage: null
-            }))
-
-            // Act
-            for (const response of responses) {
-                await saveReponse(response)
-            }
-
-            // Assert
-            expect(vi.mocked(saveReponseRecords)).toHaveBeenCalled()
+            expect(saveReponseRecords).toHaveBeenCalledWith([mockReponse])
         })
     })
 
     describe('saveReponses', () => {
-        it('should save responses directly', async () => {
+        it('should save multiple responses', async () => {
             // Arrange
             const responses: Reponse[] = [
                 {
@@ -141,6 +104,13 @@ describe('reponsesRepository', () => {
                     reponse: REPONSE_OPTIONS.OUI,
                     commentaire: 'Test',
                     pourcentage: null
+                },
+                {
+                    auditId: 123,
+                    questionId: 457,
+                    reponse: REPONSE_OPTIONS.NON,
+                    commentaire: 'Test 2',
+                    pourcentage: 50
                 }
             ]
 

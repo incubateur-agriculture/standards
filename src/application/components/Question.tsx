@@ -7,8 +7,7 @@ import { Button } from "@codegouvfr/react-dsfr/Button";
 import { Input } from "@codegouvfr/react-dsfr/Input";
 import { RadioButtons } from "@codegouvfr/react-dsfr/RadioButtons";
 import { Range } from "@codegouvfr/react-dsfr/Range";
-import React, { ChangeEvent } from "react";
-import QuestionReadonly from "./QuestionReadonly";
+import React, { ChangeEvent, useCallback, useRef } from "react";
 import PreviousResponse from "./PreviousResponse";
 
 interface QuestionProps {
@@ -31,7 +30,11 @@ export default function Question({ audit, question, onChange }: Readonly<Questio
         pourcentage: question.reponse?.pourcentage || 0
     });
 
-    function handleChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const [error, setError] = React.useState<string | null>(null);
+
+    const timeoutRef = useRef<NodeJS.Timeout>();
+
+    const handleChange = useCallback(async (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         if (!event.target.name || !event.target.value) {
             return;
         }
@@ -60,8 +63,31 @@ export default function Question({ audit, question, onChange }: Readonly<Questio
                 break;
         }
         
-        onChange(changeSet);
-    }
+        // Clear previous timeout if it exists
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+
+        // Set new timeout
+        timeoutRef.current = setTimeout(async () => {
+            try {
+                await onChange(changeSet);
+                setError(null);
+            } catch (error) {
+                console.error(error);
+                setError("Votre réponse n'a pas été enregistrée. Erreur : " + (error instanceof Error ? error.message : 'Une erreur est survenue'));
+            }
+        }, 1000);
+    }, [audit.id, question.id, state, onChange]);
+
+    // Cleanup timeout on unmount
+    React.useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
     const reset = async () => {
         setState({
@@ -81,7 +107,7 @@ export default function Question({ audit, question, onChange }: Readonly<Questio
     }
 
     return (
-        <div style={{ padding: 10, marginBottom: 10, borderRadius: 5, ... state.reponse && { border: 'solid 1px #27a658'} }}>
+        <div style={{ padding: 10, marginBottom: 10, borderRadius: 5, ... state.reponse && { border: 'solid 1px #27a658'}, ... error && { border: 'solid 1px #ff0000' } }}>
             <div style={{display: 'flex', flexDirection: 'row', marginTop: 20, alignItems: 'stretch', paddingBottom: 20}}>
                 <div style={{marginRight: 20, flexBasis: 400, flexGrow: 0.6}}>
                     <RadioButtons
@@ -173,6 +199,12 @@ export default function Question({ audit, question, onChange }: Readonly<Questio
                         iconId="ri-arrow-go-back-line" 
                         onClick={reset}
                     />
+                </div>
+            )}
+            { error && (
+                <div>
+                    <Badge severity="error" style={{marginRight: 10 }}>Erreur</Badge>
+                    { error }
                 </div>
             )}
         </div>

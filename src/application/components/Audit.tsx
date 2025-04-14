@@ -8,8 +8,8 @@ import { saveReponse } from "@/infrastructure/repositories/reponsesRepository"
 
 export default function Audit({ audit, categories }: Readonly<{ audit: AuditType, categories: CategorieType[] }>) {
 
-    const handleQuestionChange = (reponse: Reponse) => {
-        saveReponse(reponse)
+    const handleQuestionChange = async (reponse: Reponse) => {
+        await saveReponse(reponse)
     }
 
     return (
