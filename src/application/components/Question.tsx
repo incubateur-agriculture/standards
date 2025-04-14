@@ -13,7 +13,7 @@ import PreviousResponse from "./PreviousResponse";
 interface QuestionProps {
   audit: Audit;
   question: QuestionType;
-  onChange: (changes: Reponse) => void;
+  onChange: (changes: Reponse) => Promise<void>;
 }
 
 interface QuestionState {
