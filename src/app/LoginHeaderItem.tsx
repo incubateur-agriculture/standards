@@ -22,7 +22,7 @@ export function LoginHeaderItem(props: Readonly<Props>) {
                     text: "Se connecter",
                     buttonProps: {
                         onClick: () => {
-                            alert("TODO: implement login");
+                            alert("TODO: implement login !");
                         }
                     }
                 }
