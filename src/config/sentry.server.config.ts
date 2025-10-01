@@ -7,7 +7,7 @@ import { nodeProfilingIntegration } from "@sentry/profiling-node";
 
 Sentry.init({
   enabled: process.env.NODE_ENV !== 'development',
-  environment: process.env.NODE_ENV,
+  environment: process.env.SENTRY_ENV || process.env.NODE_ENV,
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
   enableLogs: true,
 

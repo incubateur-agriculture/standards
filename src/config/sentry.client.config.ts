@@ -8,7 +8,7 @@ Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 
   enabled: process.env.NODE_ENV !== 'development',
-  environment: process.env.NODE_ENV,
+  environment: process.env.SENTRY_ENV || process.env.NODE_ENV,
   enableLogs: true,
   // Add optional integrations for additional features
   integrations: [

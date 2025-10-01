@@ -12,7 +12,7 @@ export interface GristStartup {
 }
 
 export function mapGristStartupToStartup(gristStartup: GristStartup): Startup {
-    console.log(gristStartup);
+
     return {
         id: gristStartup.id,
         nom: gristStartup.fields[GRIST.STARTUPS.FIELDS.NOM] as string,

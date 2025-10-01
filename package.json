@@ -4,7 +4,7 @@
   "license": "MIT",
   "type": "module",
   "engines": {
-    "node": "~22"
+    "node": "~24"
   },
   "scripts": {
     "release": "commit-and-tag-version",
@@ -20,7 +20,7 @@
     "sync-collaborateurs-startups": "tsx src/application/bin/syncCollaborateursStartups.ts"
   },
   "dependencies": {
-    "@codegouvfr/react-dsfr": "^1.27.0",
+    "@codegouvfr/react-dsfr": "^1.28.0",
     "@emotion/react": "^11.14.0",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.14.1",

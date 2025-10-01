@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
 import { ConsentBannerAndConsentManagement } from "../application/components/consentManagement";
-import { DsfrProvider } from "../dsfr-bootstrap";
+import { DsfrProvider, StartDsfrOnHydration } from "../dsfr-bootstrap";
 import { Matomo } from "@/application/components/Matomo";
 
 export const metadata: Metadata = {
@@ -83,6 +83,7 @@ export default async function RootLayout({
             </MuiDsfrThemeProvider>
             <Footer />
           </NextAppDirEmotionCacheProvider>
+          <StartDsfrOnHydration />
         </DsfrProvider>
       </body>
     </html>

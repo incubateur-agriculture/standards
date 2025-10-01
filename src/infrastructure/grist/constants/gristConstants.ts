@@ -71,7 +71,7 @@ export const GRIST = {
             STATUT: "Statut",
             TYPOLOGIE_PRODUIT: "Typologie_produit",
             BASE_RH: "Base_RH",
-            ID_CANAL_MATTERMOST: "ID_Canal_mattermost",
+            ID_CANAL_MATTERMOST: "Canal_mattermost",
             OUTILS_STARTUPS: "Outils_des_Start_ups"
         }
     },

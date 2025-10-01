@@ -87,7 +87,6 @@ export default function OutilsSelector({
     try {
       setSaving(true)
       await editOutilsStartupsMapping(mapping)
-      console.log('Mapping sauvegardé:', mapping)
     } catch (error) {
       console.error('Erreur lors de la sauvegarde du mapping:', error)
     } finally {
@@ -107,7 +106,6 @@ export default function OutilsSelector({
       
       if (mappingToDelete?.id) {
         await deleteOutilsStartupsMapping(mappingToDelete.id)
-        console.log('Mapping supprimé:', mappingToDelete)
         
         // Mettre à jour la liste des mappings existants
         setExistingMappings(prev => 

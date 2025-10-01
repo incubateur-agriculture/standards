@@ -13,7 +13,7 @@ export default function Audit({ audit, categories }: Readonly<{ audit: AuditType
     }
 
     return (
-        <>
+        <>           
             <Tabs                
                 tabs={categories?.map((categorie, index) => ({
                     tabId: index.toString(),
