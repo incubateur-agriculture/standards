@@ -119,3 +119,12 @@ export interface GristGetRecord {
         [key: string]: any
     }
 }
+
+export interface Consommation {
+    id: number
+    produitId: number
+    outil: string
+    cout: number
+    detail: string
+    date: Date
+}

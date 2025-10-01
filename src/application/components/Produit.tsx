@@ -4,6 +4,7 @@ import { Produit as ProduitType } from '@/domain/types'
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Tag } from '@codegouvfr/react-dsfr/Tag'
+import Consommation from './Consommation'
 
 const TagGroup = ({ tags, label }: { tags: string[] | undefined, label: string }) => {
     if (!tags?.length) return null
@@ -33,7 +34,7 @@ export default function Produit({
             <div className="fr-grid-row fr-grid-row--gutters fr-mb-1w">
                 <div className="fr-col-12">
                     <div className="fr-mb-1w">
-                        <h2 className="fr-mb-0">{produit.nom}</h2>
+                        <h2 className="fr-mb-0">Produit : {produit.nom}</h2>
                         <p className="fr-text--sm fr-mb-1w">{produit.description}</p>
                         <div>
                             {produit.statut && <Tag className="fr-mr-1w">{produit.statut}</Tag>}
@@ -86,6 +87,8 @@ export default function Produit({
                     <TagGroup tags={produit.authentification} label="Authentification" />
                 </div>
             </div>
+
+            <Consommation produitId={produit.id} />
 
             <Alert
                 severity="info"

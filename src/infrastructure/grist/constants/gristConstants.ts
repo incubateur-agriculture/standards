@@ -82,5 +82,15 @@ export const GRIST = {
             OUTIL: "Outil",
             USAGE: "Usage"
         }
+    },
+    CONSOMMATIONS: {
+        ID: "Consommations",
+        FIELDS: {
+            PRODUIT_ID: "Produit",
+            OUTIL: "Outil",
+            COUT: "Cout",
+            DETAIL: "Details",
+            DATE: "Mois"
+        }
     }
 }; 

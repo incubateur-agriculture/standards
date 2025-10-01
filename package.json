@@ -14,7 +14,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test-unit": "vitest",
+    "test-unit": "vitest --no-watch",
     "test-e2e": "playwright test",
     "test-ci": "vitest run --coverage && playwright test",
     "sync-collaborateurs-startups": "tsx src/application/bin/syncCollaborateursStartups.ts"

@@ -15,7 +15,7 @@ export default function Startup({
             <div className="fr-grid-row fr-grid-row--gutters fr-mb-1w">
                 <div className="fr-col-12">
                     <div className="fr-mb-1w">
-                        <h2 className="fr-mb-0">{startup.nom}</h2>
+                        <h2 className="fr-mb-0">Startup : {startup.nom}</h2>
                     </div>
                 </div>
             </div>
