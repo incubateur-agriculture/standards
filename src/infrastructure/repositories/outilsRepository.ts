@@ -63,5 +63,3 @@ export async function deleteOutilsStartupsMapping(mappingId: number): Promise<vo
 export async function createOutilNonMutualise(nomOutil: string, startupId: number): Promise<Produit> {
   return createGristOutilNonMutualise(nomOutil, startupId)
 }
-
-
