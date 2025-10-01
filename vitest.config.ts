@@ -11,5 +11,6 @@ export default defineConfig({
         reporter: ['text', 'cobertura', 'lcovonly']
     },
     environment: 'jsdom',
+    setupFiles: ['./src/test-setup.ts'],
   },
 })

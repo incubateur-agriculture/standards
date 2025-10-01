@@ -5,14 +5,17 @@
 import * as Sentry from "@sentry/nextjs";
 
 Sentry.init({
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+
   enabled: process.env.NODE_ENV !== 'development',
   environment: process.env.NODE_ENV,
-  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  enableLogs: true,
   // Add optional integrations for additional features
   integrations: [
     Sentry.replayIntegration(),
     // Add browser profiling integration to the list of integrations
     Sentry.browserProfilingIntegration(),
+    Sentry.consoleLoggingIntegration({ levels: ["log", "warn", "error"] }),
   ],
 
   // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.

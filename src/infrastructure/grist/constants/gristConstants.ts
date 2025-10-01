@@ -29,11 +29,21 @@ export const GRIST = {
             POURCENTAGE: "Pourcentage"
         }
     },
+    PRODUITS_ET_OUTILS: {
+        ID: "ProduitsEtOutils",
+        FIELDS: {
+            TYPE: "Type",
+            MUTUALISE: "Mutualise",
+            NOM: "Nom_du_produits",
+        }
+    },
     PRODUITS: {
         ID: "AuditsProduits",
         FIELDS: {
+            TYPE: "Type",
+            MUTUALISE: "Mutualise",
             NOM: "Nom",
-            STARTUP: "Startup",
+            STARTUP_ID: "Produit_maitre_Start_up",
             STATUT: "Statut",
             TYPE_PROJET: "Type_de_projet",
             ARCHITECTURE: "Architecture",
@@ -48,6 +58,29 @@ export const GRIST = {
             FRONTEND: "Frontend",
             BACKEND: "Backend",
             AUTHENTIFICATION: "Authentification"
+        }
+    },
+    STARTUPS: {
+        ID: "Start_up",
+        FIELDS: {
+            NOM: "Nom_de_la_start_up",
+            ACRONYME: "Acronyme",
+            INTRA: "Intra",
+            ACTIF: "Actif",
+            INCUBATEUR: "Incubateur",
+            STATUT: "Statut",
+            TYPOLOGIE_PRODUIT: "Typologie_produit",
+            BASE_RH: "Base_RH",
+            ID_CANAL_MATTERMOST: "ID_Canal_mattermost",
+            OUTILS_STARTUPS: "Outils_des_Start_ups"
+        }
+    },
+    OUTILS_STARTUPS: {
+        ID: "Outils_des_Start_ups",
+        FIELDS: {
+            STARTUP: "Start_up",
+            OUTIL: "Outil",
+            USAGE: "Usage"
         }
     }
 }; 

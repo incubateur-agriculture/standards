@@ -3,6 +3,8 @@ import { getQuestions } from "@/infrastructure/repositories/questionRepository";
 import Audit from "@/application/components/Audit";
 import Produit from "@/application/components/Produit";
 import { getProduitById } from "@/infrastructure/repositories/produitRepository";
+import { getStartupById } from "@/infrastructure/repositories/startupRepository";
+import Startup from "@/application/components/Startup";
 
 export default async function Page({ params }: Readonly<{ params: Promise<{ auditHash: string|null }> }>) {
   const auditHash = (await params).auditHash; 
@@ -17,6 +19,7 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ audi
     );
   }
   const produit = await getProduitById(audit.produit.id);
+  const startup = produit?.startupId ? await getStartupById(produit.startupId) : null;
   const categories = await getQuestions(audit.produit.id, auditHash);
 
   if (!categories) {
@@ -25,6 +28,8 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ audi
 
   return (
     <>
+      {startup && <Startup startup={startup} />}
+
       {produit && <Produit produit={produit} />}
 
       <h2>Audit technique du produit {audit.produit.nom}</h2>

@@ -1,4 +1,7 @@
 export default async function Page() {
+
+    console.log('La page index est chargée');
+
     return (
         <div role="main" id="content">
             <div className="fr-mb-md-14v pt-20 max-w-screen-lg mx-auto px-4">

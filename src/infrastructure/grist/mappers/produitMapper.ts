@@ -15,7 +15,7 @@ export function mapGristProduitToProduit(gristProduit: GristProduit): Produit {
     return {
         id: gristProduit.id,
         nom: gristProduit.fields[GRIST.PRODUITS.FIELDS.NOM] as string,
-        startup: gristProduit.fields[GRIST.PRODUITS.FIELDS.STARTUP] as string,
+        startupId: gristProduit.fields[GRIST.PRODUITS.FIELDS.STARTUP_ID] as number | undefined,
         statut: gristProduit.fields[GRIST.PRODUITS.FIELDS.STATUT] as string,
         typeProjet: gristProduit.fields[GRIST.PRODUITS.FIELDS.TYPE_PROJET] as string,
         architecture: gristProduit.fields[GRIST.PRODUITS.FIELDS.ARCHITECTURE] as string,

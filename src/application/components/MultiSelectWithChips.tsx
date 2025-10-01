@@ -9,6 +9,7 @@ interface MultiSelectWithChipsProps {
   options: ColumnOption[]
   selectedValues: string[]
   onChange: (values: string[]) => void
+  onRemove?: (value: string) => void
   disabled?: boolean
   hint?: string
   loading?: boolean
@@ -20,6 +21,7 @@ export default function MultiSelectWithChips({
   options,
   selectedValues,
   onChange,
+  onRemove,
   disabled = false,
   hint,
   loading = false
@@ -51,6 +53,11 @@ export default function MultiSelectWithChips({
     const newSelected = selected.filter(value => value !== valueToRemove)
     setSelected(newSelected)
     onChange(newSelected)
+    
+    // Appeler le callback de suppression si fourni
+    if (onRemove) {
+      onRemove(valueToRemove)
+    }
   }
 
   // Filtrer les options pour n'afficher que celles qui ne sont pas déjà sélectionnées
@@ -66,9 +73,13 @@ export default function MultiSelectWithChips({
       {/* Affichage des puces/tags pour les valeurs sélectionnées */}
       {selected.length > 0 && (
         <div className="fr-tags-group fr-mb-1w">
-          {selected.map(value => {
-            const option = options.find(opt => opt.id === value)
-            return (
+          {selected
+            .map(value => {
+              const option = options.find(opt => opt.id === value)
+              return { value, option }
+            })
+            .sort((a, b) => (a.option?.label || a.value).localeCompare(b.option?.label || b.value))
+            .map(({ value, option }) => (
               <Tag 
                 key={value} 
                 dismissible
@@ -80,8 +91,8 @@ export default function MultiSelectWithChips({
               >
                 {option?.label || value}
               </Tag>
-            )
-          })}
+            ))
+          }
         </div>
       )}
       

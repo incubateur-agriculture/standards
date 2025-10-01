@@ -3,15 +3,12 @@ import { fr } from "@codegouvfr/react-dsfr";
 import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import Header from "@codegouvfr/react-dsfr/Header";
 import MuiDsfrThemeProvider from "@codegouvfr/react-dsfr/mui";
-import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
-import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
-import { getHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getHtmlAttributes";
+import { getHtmlAttributes, DsfrHead } from "../dsfr-bootstrap/server-only-index";
 import { Metadata } from "next";
 import Link from "next/link";
 import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
 import { ConsentBannerAndConsentManagement } from "../application/components/consentManagement";
-import { StartDsfr } from "./StartDsfr";
-import { defaultColorScheme } from "./defaultColorScheme";
+import { DsfrProvider } from "../dsfr-bootstrap";
 import { Matomo } from "@/application/components/Matomo";
 
 export const metadata: Metadata = {
@@ -24,14 +21,12 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: {
-  children: JSX.Element;
+  children: any;
 }) {
   return (
-    <html lang="fr" {...getHtmlAttributes({ defaultColorScheme })}>
+    <html {...getHtmlAttributes({ lang: "fr" })}>
       <head>
-        <StartDsfr />
         <DsfrHead
-          Link={Link}
           preloadFonts={[
             //"Marianne-Light",
             //"Marianne-Light_Italic",
@@ -54,7 +49,7 @@ export default async function RootLayout({
           flexDirection: "column",
         }}
       >
-        <DsfrProvider>
+        <DsfrProvider lang="fr">
           <ConsentBannerAndConsentManagement />
           <NextAppDirEmotionCacheProvider options={{ key: "css" }}>
             <MuiDsfrThemeProvider>

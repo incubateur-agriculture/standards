@@ -8,7 +8,7 @@ import type { AlertProps } from "@codegouvfr/react-dsfr/Alert"
 import PreviousResponse from "./PreviousResponse"
 
 export default function QuestionReadonly({ audit, question }: Readonly<{audit: Audit, question: QuestionType }>) {
-    const badgeForReponse = (reponse: Reponse | null): JSX.Element => {
+    const badgeForReponse = (reponse: Reponse | null): any => {
         if (!reponse) {
             return <Badge 
                 style={{ fontSize: 20 }} 

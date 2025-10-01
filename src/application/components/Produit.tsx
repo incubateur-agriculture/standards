@@ -1,12 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { Produit as ProduitType } from '@/domain/types'
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Tag } from '@codegouvfr/react-dsfr/Tag'
-import OutilsSelector from './OutilsSelector'
-import { saveProduit } from '@/infrastructure/repositories/produitRepository'
 
 const TagGroup = ({ tags, label }: { tags: string[] | undefined, label: string }) => {
     if (!tags?.length) return null
@@ -26,78 +23,9 @@ export default function Produit({
 }: Readonly<{ 
     produit: ProduitType | null,
 }>) {
-    const [editedProduit, setEditedProduit] = useState<ProduitType | null>(produit)
-    const [saving, setSaving] = useState(false)
-    const [error, setError] = useState<string | null>(null)
     
     if (!produit) {
         return null
-    }
-
-    // On component update or produit change
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-        setEditedProduit(produit)
-    }, [produit])
-
-    const handleOutilsMutualisesChange = async (values: string[]) => {
-        if (!editedProduit) return
-                
-        const updatedProduit = {
-            ...editedProduit,
-            outilsMutualises: values
-        }
-        
-        setEditedProduit(updatedProduit)
-        await saveUpdatedProduit(updatedProduit)
-    }
-
-    const handleOutilsNonMutualisesChange = async (values: string[]) => {
-        if (!editedProduit) return
-                
-        const updatedProduit = {
-            ...editedProduit,
-            outilsNonMutualises: values
-        }
-        
-        setEditedProduit(updatedProduit)
-        await saveUpdatedProduit(updatedProduit)
-    }
-
-    // Fonction pour sauvegarder le produit avec gestion des erreurs
-    const saveUpdatedProduit = async (updatedProduit: ProduitType) => {
-        if (!updatedProduit || !updatedProduit.id) {
-            setError("Impossible de sauvegarder : données du produit invalides");
-            return;
-        }
-
-        try {
-            setSaving(true)
-            setError(null)
-            
-            // S'assurer que les tableaux sont bien définis, même vides
-            const produitToSave: ProduitType = {
-                ...updatedProduit,
-                // S'assurer que tous les tableaux sont bien définis
-                outilsMutualises: updatedProduit.outilsMutualises || [],
-                outilsNonMutualises: updatedProduit.outilsNonMutualises || [],
-                languages: updatedProduit.languages || [],
-                dependances: updatedProduit.dependances || [],
-                hebergement: updatedProduit.hebergement || [],
-                frontend: updatedProduit.frontend || [],
-                backend: updatedProduit.backend || [],
-                authentification: updatedProduit.authentification || []
-            };
-            
-            // Appel de l'API pour sauvegarder
-            await saveProduit(produitToSave)
-         
-        } catch (err) {
-            console.error('Erreur lors de la sauvegarde du produit:', err)
-            setError('Une erreur est survenue lors de la sauvegarde des modifications.')
-        } finally {
-            setSaving(false)
-        }
     }
 
     return (
@@ -158,35 +86,6 @@ export default function Produit({
                     <TagGroup tags={produit.authentification} label="Authentification" />
                 </div>
             </div>
-
-            {/* Affichage direct des sélecteurs multiples */}
-            <div className="fr-mt-3w">
-                <OutilsSelector
-                    produit={editedProduit}
-                    onOutilsMutualisesChange={handleOutilsMutualisesChange}
-                    onOutilsNonMutualisesChange={handleOutilsNonMutualisesChange}
-                    disabled={saving} // Désactive les sélecteurs pendant la sauvegarde ou en mode lecture seule
-                />
-            </div>
-
-            {/* Affichage des erreurs */}
-            {error && (
-                <Alert
-                    severity="error"
-                    small
-                    className="fr-mt-2w"
-                    description={error}
-                    closable
-                    onClose={() => setError(null)}
-                />
-            )}
-
-            {/* Indicateur de sauvegarde */}
-            {saving && (
-                <div className="fr-mt-2w">
-                    <p className="fr-text--sm">Sauvegarde en cours...</p>
-                </div>
-            )}
 
             <Alert
                 severity="info"

@@ -11,7 +11,7 @@ describe('produitMapper', () => {
         id: 123,
         fields: {
           [GRIST.PRODUITS.FIELDS.NOM]: 'Test Product',
-          [GRIST.PRODUITS.FIELDS.STARTUP]: 'Test Startup',
+          [GRIST.PRODUITS.FIELDS.STARTUP_ID]: 123,
           [GRIST.PRODUITS.FIELDS.STATUT]: 'En construction',
           [GRIST.PRODUITS.FIELDS.TYPE_PROJET]: 'Application',
           [GRIST.PRODUITS.FIELDS.ARCHITECTURE]: 'Monolithique',
@@ -36,7 +36,7 @@ describe('produitMapper', () => {
       const expected: Produit = {
         id: 123,
         nom: 'Test Product',
-        startup: 'Test Startup',
+        startupId: 123,
         statut: 'En construction',
         typeProjet: 'Application',
         architecture: 'Monolithique',
@@ -61,7 +61,7 @@ describe('produitMapper', () => {
         id: 123,
         fields: {
           [GRIST.PRODUITS.FIELDS.NOM]: 'Test Product',
-          [GRIST.PRODUITS.FIELDS.STARTUP]: 'Test Startup',
+          [GRIST.PRODUITS.FIELDS.STARTUP_ID]: 123,
           [GRIST.PRODUITS.FIELDS.STATUT]: 'En construction',
           [GRIST.PRODUITS.FIELDS.TYPE_PROJET]: 'Application',
           [GRIST.PRODUITS.FIELDS.ARCHITECTURE]: 'Monolithique',
@@ -92,7 +92,7 @@ describe('produitMapper', () => {
         id: 123,
         fields: {
           [GRIST.PRODUITS.FIELDS.NOM]: 'Test Product',
-          [GRIST.PRODUITS.FIELDS.STARTUP]: 'Test Startup',
+          [GRIST.PRODUITS.FIELDS.STARTUP_ID]: 123,
           [GRIST.PRODUITS.FIELDS.STATUT]: 'En construction',
           [GRIST.PRODUITS.FIELDS.TYPE_PROJET]: 'Application',
           [GRIST.PRODUITS.FIELDS.ARCHITECTURE]: 'Monolithique',

@@ -29,7 +29,7 @@ export interface Question {
 export interface Produit {
     id: number
     nom: string
-    startup?: string
+    startupId?: number
     statut?: string
     typeProjet?: string
     architecture?: string
@@ -71,8 +71,16 @@ export interface Reponse {
 
 export interface Startup {
     id?: number
-    idBeta: string
     nom: string
+    acronyme: string
+    intra: string
+    actif: boolean
+    incubateur: string
+    statut?: string
+    typologieProduit?: string
+    baseRh?: string
+    idCanalMattermost?: string
+    outilsStartups?: string[]
 }
 
 export interface Collaborateur {
@@ -80,4 +88,34 @@ export interface Collaborateur {
     idBeta: string
     nomComplet: string
     domaine: string
+}
+
+export interface OutilsStartupsMapping {
+    id?: number
+    startupId: number
+    outilId: number
+    usage?: string
+}
+
+export interface GristPostRecord {
+    fields?: {
+        [key: string]: any
+    }
+}
+
+export interface GristPutRecord {
+    id?: number
+    require: {
+        [key: string]: any
+    },
+    fields?: {
+        [key: string]: any
+    }
+}
+
+export interface GristGetRecord {
+    id?: number
+    fields: {
+        [key: string]: any
+    }
 }

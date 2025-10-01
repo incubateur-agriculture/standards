@@ -41,7 +41,7 @@ describe('produitRepository', () => {
       const mockProduit: Produit = {
         id: produitId,
         nom: 'Test Product',
-        startup: 'Test Startup',
+        startupId: 123,
         statut: 'En construction',
         typeProjet: 'Application',
         architecture: 'Monolithique',
@@ -89,7 +89,7 @@ describe('produitRepository', () => {
         {
           id: 1,
           nom: 'Product 1',
-          startup: 'Startup 1',
+          startupId: 1,
           statut: 'En construction',
           typeProjet: 'Application',
           architecture: 'Monolithique',
@@ -108,7 +108,7 @@ describe('produitRepository', () => {
         {
           id: 2,
           nom: 'Product 2',
-          startup: 'Startup 2',
+          startupId: 2,
           statut: 'En production',
           typeProjet: 'API',
           architecture: 'Microservices',
@@ -143,7 +143,7 @@ describe('produitRepository', () => {
       const produit: Produit = {
         id: 123,
         nom: 'Test Product',
-        startup: 'Test Startup',
+        startupId: 123,
         statut: 'En construction',
         typeProjet: 'Application',
         architecture: 'Monolithique',
@@ -174,7 +174,7 @@ describe('produitRepository', () => {
       const produit: Produit = {
         id: 123,
         nom: 'Test Product',
-        startup: 'Test Startup',
+        startupId: 123,
         statut: 'En construction',
         typeProjet: 'Application',
         architecture: 'Monolithique',

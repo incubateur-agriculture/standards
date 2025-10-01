@@ -32,7 +32,7 @@ export default function Question({ audit, question, onChange }: Readonly<Questio
 
     const [error, setError] = React.useState<string | null>(null);
 
-    const timeoutRef = useRef<NodeJS.Timeout>();
+    const timeoutRef = useRef<NodeJS.Timeout>(null);
 
     const handleChange = useCallback(async (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         if (!event.target.name || !event.target.value) {

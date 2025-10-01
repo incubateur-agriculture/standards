@@ -14,9 +14,9 @@ export default function Audit({ audit, categories }: Readonly<{ audit: AuditType
 
     return (
         <>
-            <Tabs
+            <Tabs                
                 tabs={categories?.map((categorie, index) => ({
-                    tabId: index,
+                    tabId: index.toString(),
                     label: categorie.titre,
                     content: categorie.titre ? (
                         <div key={`category.${categorie.titre}`} title={categorie.titre}>
