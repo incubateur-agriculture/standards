@@ -99,5 +99,15 @@ export const GRIST = {
         FIELDS: {
             IDENTIFIANT_OUTIL: "Identifiant_Outil"
         }
+    },
+    RECOMMANDATIONS: {
+        ID: "AuditsRecommandations",
+        FIELDS: {
+            PRODUIT_ID: "Produit",
+            RECOMMANDATION: "Recommandation",
+            STATUT: "Statut",
+            PRIORITE: "Priorite",
+            COMITE_INVESTISSEMENT: "Audit_Comite_d_investissement"
+        }
     }
 }; 

@@ -108,7 +108,7 @@ export default function Consommation({ produitId }: ConsommationProps) {
                     </span>
                 </td>
                 <td>
-                    <span className="fr-text--sm">
+                    <span className="fr-text--sm whitespace-pre-line">
                     {consommation.detail}
                     </span>
                 </td>

@@ -135,3 +135,12 @@ export interface MappingProduitHebergement {
     id: number
     identifiantOutil: string
 }
+
+export interface Recommandation {
+    id: number
+    produitId: number
+    recommandation: string
+    statut: string
+    priorite?: string
+    comiteInvestissement: string
+}

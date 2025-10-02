@@ -5,6 +5,7 @@ import { Alert } from '@codegouvfr/react-dsfr/Alert'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Tag } from '@codegouvfr/react-dsfr/Tag'
 import Consommation from './Consommation'
+import Recommandations from './Recommandations'
 
 const TagGroup = ({ tags, label }: { tags: string[] | undefined, label: string }) => {
     if (!tags?.length) return null
@@ -89,6 +90,7 @@ export default function Produit({
             </div>
 
             <Consommation produitId={produit.id} />
+            <Recommandations produitId={produit.id} />
 
             <Alert
                 severity="info"
