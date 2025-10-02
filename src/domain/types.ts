@@ -125,7 +125,13 @@ export interface Consommation {
     id: number
     produitId: number
     outil: string
+    identifiant: string
     cout: number
     detail: string
     date: Date
+}
+
+export interface MappingProduitHebergement {
+    id: number
+    identifiantOutil: string
 }

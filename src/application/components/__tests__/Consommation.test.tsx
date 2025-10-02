@@ -26,6 +26,7 @@ describe('Consommation', () => {
         id: 1,
         produitId: 123,
         outil: 'AWS EC2',
+        identifiant: 'i-1234567890abcdef0',
         cout: 150.50,
         detail: 'Instance t3.medium',
         date: new Date('2024-01-15T10:30:00Z')
@@ -34,6 +35,7 @@ describe('Consommation', () => {
         id: 2,
         produitId: 123,
         outil: 'MongoDB Atlas',
+        identifiant: 'cluster-abc123',
         cout: 75.00,
         detail: 'Cluster M10',
         date: new Date('2024-01-20T10:30:00Z')
@@ -100,6 +102,7 @@ describe('Consommation', () => {
         id: 1,
         produitId: 123,
         outil: 'AWS EC2',
+        identifiant: 'i-1234567890abcdef0',
         cout: 100.00,
         detail: 'Instance t3.medium',
         date: new Date('2024-01-15T10:30:00Z')
@@ -108,6 +111,7 @@ describe('Consommation', () => {
         id: 2,
         produitId: 123,
         outil: 'MongoDB Atlas',
+        identifiant: 'cluster-abc123',
         cout: 50.25,
         detail: 'Cluster M10',
         date: new Date('2024-01-20T10:30:00Z')

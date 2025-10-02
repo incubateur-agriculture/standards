@@ -88,9 +88,16 @@ export const GRIST = {
         FIELDS: {
             PRODUIT_ID: "Produit",
             OUTIL: "Outil",
+            IDENTIFIANT: "Identifiant_Outil",
             COUT: "Cout",
             DETAIL: "Details",
             DATE: "Mois"
+        }
+    },
+    MAPPING_PRODUIT_HEBERGEMENT: {
+        ID: "Mapping_Produit_Hebergement",
+        FIELDS: {
+            IDENTIFIANT_OUTIL: "Identifiant_Outil"
         }
     }
 }; 

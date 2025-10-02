@@ -5,7 +5,7 @@ import { GristConsommation, mapGristConsommationToConsommation } from '@/infrast
 
 export async function findConsommationsByProduitId(produitId: number): Promise<Consommation[]> {
     const gristConsommations = await getGristConsommationsByProduitId(produitId)
-    return gristConsommations.map(gristConsommation => mapGristConsommationToConsommation(gristConsommation))
+    return Promise.all(gristConsommations.map(gristConsommation => mapGristConsommationToConsommation(gristConsommation)))
 }
 
 export async function findConsommationsByProduitIdAndDate(
@@ -13,7 +13,7 @@ export async function findConsommationsByProduitIdAndDate(
     date: Date
 ): Promise<Consommation[]> {
     const gristConsommations = await getGristConsommationsByProduitIdAndDate(produitId, date)
-    return gristConsommations.map(gristConsommation => mapGristConsommationToConsommation(gristConsommation))
+    return Promise.all(gristConsommations.map(gristConsommation => mapGristConsommationToConsommation(gristConsommation)))
 }
 
 export async function findConsommationsDuDernierMois(produitId: number): Promise<Consommation[]> {

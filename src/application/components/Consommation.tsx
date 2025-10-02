@@ -81,6 +81,7 @@ export default function Consommation({ produitId }: ConsommationProps) {
             <thead>
             <tr>
                 <th scope="col">Outil</th>
+                <th scope="col">Identifiant</th>
                 <th scope="col">Coût</th>
                 <th scope="col">Détail</th>
             </tr>
@@ -91,6 +92,11 @@ export default function Consommation({ produitId }: ConsommationProps) {
                 <td>
                     <span className="fr-text--sm fr-text--bold">
                     {consommation.outil}
+                    </span>
+                </td>
+                <td>
+                    <span className="fr-text--sm">
+                    {consommation.identifiant ?? '-'}
                     </span>
                 </td>
                 <td>
