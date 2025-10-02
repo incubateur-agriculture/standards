@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.0](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.4.2...v1.5.0) (2025-10-02)
+
+
+### Features
+
+* **consommations:** add consommations to produit ([cb80352](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/cb80352e4be84b1b8fcb263d898682e71b64cd73))
+* **login:** change alert ([b702ea2](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/b702ea24443c02401e1561db96e64f3d1bd28645))
+
+
+### Bug Fixes
+
+* **audit-v4:** various fixes ([6f150b9](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/6f150b9a89945c300e21c05a0ce6b8f969a51e57))
+* **audit:** remove mattermost link ([d47a6c0](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/d47a6c04eb17a0229cf46cfc8fbb6a508777fe53))
+* **question:** allow to empty commentaires ([cffce18](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/cffce18c7fd5df48737cca74b624a74e3e8fcb34))
+* **test:** remove error logs ([58f027f](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/58f027fa07db503ca1fa9388b77e350b73736344))
+
 ## [1.4.2](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.4.1...v1.4.2) (2025-04-14)
 
 
