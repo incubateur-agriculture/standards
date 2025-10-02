@@ -24,7 +24,7 @@ afterEach(() => {
 describe('Test Question component in form mode', async () => {
     
     it('should render properly in form mode', async () => {
-        render(<Question audit={audit} question={question} onChange={() => {}}/>)
+        render(<Question audit={audit} question={question} onChange={async () => {}}/>)
         expect(screen.getByText('Une question de toute première importance ?')).toBeDefined();
     })
 
@@ -41,8 +41,9 @@ describe('Test Question component in form mode', async () => {
                 auditId: audit.id,
                 questionId: question.id,
                 reponse: "Oui",
-                commentaire: "",
-                pourcentage: 0
+                commentaire: null,
+                pourcentage: 0,
+                commentaireModified: false
             });
         }, { timeout: 2000 });
     })
@@ -64,8 +65,9 @@ describe('Test Question component in form mode', async () => {
                 auditId: audit.id,
                 questionId: question.id,
                 reponse: "Non",
-                commentaire: "",
-                pourcentage: 0
+                commentaire: null,
+                pourcentage: 0,
+                commentaireModified: false
             });
         }, { timeout: 2000 });
     })
@@ -84,21 +86,43 @@ describe('Test Question component in form mode', async () => {
                 questionId: question.id,
                 reponse: null,
                 commentaire: 'Test comment',
-                pourcentage: 0
+                pourcentage: 0,
+                commentaireModified: true
             });
         }, { timeout: 2000 });
     });
 
-    it('should not call onChange when event target has no name or value', async () => {
+    it('should allow deleting the last character from comment field', async () => {
         const handleChange = vi.fn();
         
         render(<Question audit={audit} question={question} onChange={handleChange}/>);
         
-        // Simulate event without name using userEvent
-        const radio = screen.getByLabelText("Oui");
-        await userEvent.click(radio);
+        const textarea = screen.getByPlaceholderText('Commentaires / détails');
         
-        // Override the name property of the input
+        // Type some text
+        await userEvent.type(textarea, 'Test');
+        
+        // Clear all text by selecting all and deleting
+        await userEvent.clear(textarea);
+        
+        await waitFor(() => {
+            expect(handleChange).toHaveBeenCalledWith({
+                auditId: audit.id,
+                questionId: question.id,
+                reponse: null,
+                commentaire: null,
+                pourcentage: 0,
+                commentaireModified: true
+            });
+        }, { timeout: 2000 });
+    });
+
+    it('should not call onChange when event target has no name', async () => {
+        const handleChange = vi.fn();
+        
+        render(<Question audit={audit} question={question} onChange={handleChange}/>);
+        
+        // Override the name property of the input to be empty
         const input = screen.getByRole('radio', { name: 'Oui' });
         Object.defineProperty(input, 'name', { value: '' });
         
@@ -165,7 +189,7 @@ describe('Test Question component in form mode', async () => {
 describe('Test Question component in display mode', async () => {
     
     it('should render properly', async () => {
-        render(<Question audit={{...audit, cloture: true}} question={question} onChange={() => {}}/>)
+        render(<Question audit={{...audit, cloture: true}} question={question} onChange={async () => {}}/>)
         expect(screen.getByText('Une question de toute première importance ?')).toBeDefined();
     })
 })

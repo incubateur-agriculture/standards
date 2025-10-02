@@ -1,9 +1,9 @@
 'use client'
 
 import { Consommation as ConsommationType } from '@/domain/types'
+import { getConsommationsDuDernierMois } from '@/infrastructure/repositories/consommationRepository'
 import { Accordion } from '@codegouvfr/react-dsfr/Accordion'
 import { useEffect, useState } from 'react'
-import { getConsommationsDernierMoisAction } from '@/app/actions/consommationActions'
 
 interface ConsommationProps {
   produitId: number
@@ -20,7 +20,7 @@ export default function Consommation({ produitId }: ConsommationProps) {
         setLoading(true)
         setError(null)
         
-        const data = await getConsommationsDernierMoisAction(produitId)
+        const data = await getConsommationsDuDernierMois(produitId)
         setConsommations(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Une erreur est survenue')

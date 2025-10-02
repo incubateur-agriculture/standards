@@ -67,6 +67,7 @@ export interface Reponse {
     commentaire: string|null
     pourcentage: number|null
     reset?: boolean
+    commentaireModified?: boolean
 }
 
 export interface Startup {

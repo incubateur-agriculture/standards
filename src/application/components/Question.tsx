@@ -35,28 +35,35 @@ export default function Question({ audit, question, onChange }: Readonly<Questio
     const timeoutRef = useRef<NodeJS.Timeout>(null);
 
     const handleChange = useCallback(async (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        if (!event.target.name || !event.target.value) {
+        if (!event.target.name) {
             return;
         }
 
         const {name, value} = event.target;
 
-        const changeSet = {
+        const changeSet: Reponse = {
             auditId: audit.id,
             questionId: question.id,
-            ...state
+            reponse: state.reponse,
+            commentaire: state.commentaire || null,
+            pourcentage: state.pourcentage,
+            commentaireModified: false
         };
 
         switch (name) {
             case `reponses[${question.id}][reponse]`:
-                setState(prev => ({...prev, reponse: value as REPONSE_OPTIONS}));
-                changeSet.reponse = value as REPONSE_OPTIONS;
+                if (!value) return; // Garder la validation pour les réponses
+                const newReponse = value as REPONSE_OPTIONS;
+                setState(prev => ({...prev, reponse: newReponse}));
+                changeSet.reponse = newReponse;
                 break;
             case `reponses[${question.id}][commentaire]`:
                 setState(prev => ({...prev, commentaire: value}));
-                changeSet.commentaire = value ?? null;
+                changeSet.commentaire = value || null;
+                changeSet.commentaireModified = true;
                 break;
             case `reponses[${question.id}][range]`:
+                if (!value) return; // Garder la validation pour le range
                 const newPourcentage = parseInt(value);
                 setState(prev => ({...prev, pourcentage: newPourcentage}));
                 changeSet.pourcentage = state.reponse === REPONSE_NON ? newPourcentage : 0;

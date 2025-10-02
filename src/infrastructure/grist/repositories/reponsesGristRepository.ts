@@ -23,7 +23,7 @@ export async function saveReponseRecords(reponses: Reponse[]): Promise<void> {
             ... ((reponse.reponse != null || reponse.reset) && {
                 [GRIST.REPONSES.FIELDS.REPONSE]: reponse.reponse,
             }),
-            ... ((reponse.commentaire != null || reponse.reset) && {
+            ... ((reponse.commentaire != null || reponse.reset || reponse.commentaireModified) && {
                 [GRIST.REPONSES.FIELDS.COMMENTAIRES]: reponse.commentaire,
             }),
             [GRIST.REPONSES.FIELDS.POURCENTAGE]: reponse.pourcentage,

@@ -136,7 +136,8 @@ describe('reponsesGristRepository', () => {
                 questionId: 789,
                 reponse: REPONSE_OPTIONS.OUI,
                 commentaire: 'Test comment',
-                pourcentage: 75
+                pourcentage: 75,
+                commentaireModified: false
             }]
 
             // Act
@@ -188,6 +189,39 @@ describe('reponsesGristRepository', () => {
                             [GRIST.REPONSES.FIELDS.REPONSE]: null,
                             [GRIST.REPONSES.FIELDS.COMMENTAIRES]: null,
                             [GRIST.REPONSES.FIELDS.POURCENTAGE]: null
+                        }
+                    }]
+                }
+            )
+        })
+
+        it('should save null comment when commentaireModified is true', async () => {
+            // Arrange
+            const reponses: Reponse[] = [{
+                auditId: 456,
+                questionId: 789,
+                reponse: REPONSE_OPTIONS.OUI,
+                commentaire: null,
+                pourcentage: 75,
+                commentaireModified: true
+            }]
+
+            // Act
+            await saveReponseRecords(reponses)
+
+            // Assert
+            expect(apiClient.put).toHaveBeenCalledWith(
+                `/tables/${GRIST.REPONSES.ID}/records`,
+                { 
+                    records: [{
+                        require: {
+                            [GRIST.REPONSES.FIELDS.AUDIT]: 456,
+                            [GRIST.REPONSES.FIELDS.QUESTION]: 789,
+                        },
+                        fields: {
+                            [GRIST.REPONSES.FIELDS.REPONSE]: REPONSE_OPTIONS.OUI,
+                            [GRIST.REPONSES.FIELDS.COMMENTAIRES]: null,
+                            [GRIST.REPONSES.FIELDS.POURCENTAGE]: 75
                         }
                     }]
                 }

@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import Consommation from '../Consommation'
-import { getConsommationsDernierMoisAction } from '@/app/actions/consommationActions'
+import { getConsommationsDuDernierMois } from '@/infrastructure/repositories/consommationRepository'
 
-// Mock the server action
-vi.mock('@/app/actions/consommationActions', () => ({
-  getConsommationsDernierMoisAction: vi.fn()
+// Mock the repository function
+vi.mock('@/infrastructure/repositories/consommationRepository', () => ({
+  getConsommationsDuDernierMois: vi.fn()
 }))
 
 describe('Consommation', () => {
@@ -40,7 +40,7 @@ describe('Consommation', () => {
       }
     ]
 
-    vi.mocked(getConsommationsDernierMoisAction).mockResolvedValueOnce(mockConsommations)
+    vi.mocked(getConsommationsDuDernierMois).mockResolvedValueOnce(mockConsommations)
 
     render(<Consommation produitId={123} />)
 
@@ -57,7 +57,7 @@ describe('Consommation', () => {
   })
 
   it('should display error message when server action fails', async () => {
-    vi.mocked(getConsommationsDernierMoisAction).mockRejectedValueOnce(new Error('Server error'))
+    vi.mocked(getConsommationsDuDernierMois).mockRejectedValueOnce(new Error('Server error'))
 
     render(<Consommation produitId={123} />)
 
@@ -71,7 +71,7 @@ describe('Consommation', () => {
   })
 
   it('should display no data message when no consommations', async () => {
-    vi.mocked(getConsommationsDernierMoisAction).mockResolvedValueOnce([])
+    vi.mocked(getConsommationsDuDernierMois).mockResolvedValueOnce([])
 
     render(<Consommation produitId={123} />)
 
@@ -85,12 +85,12 @@ describe('Consommation', () => {
   })
 
   it('should call server action with correct produitId', async () => {
-    vi.mocked(getConsommationsDernierMoisAction).mockResolvedValueOnce([])
+    vi.mocked(getConsommationsDuDernierMois).mockResolvedValueOnce([])
 
     render(<Consommation produitId={123} />)
 
     await waitFor(() => {
-      expect(getConsommationsDernierMoisAction).toHaveBeenCalledWith(123)
+      expect(getConsommationsDuDernierMois).toHaveBeenCalledWith(123)
     })
   })
 
@@ -114,7 +114,7 @@ describe('Consommation', () => {
       }
     ]
 
-    vi.mocked(getConsommationsDernierMoisAction).mockResolvedValueOnce(mockConsommations)
+    vi.mocked(getConsommationsDuDernierMois).mockResolvedValueOnce(mockConsommations)
 
     render(<Consommation produitId={123} />)
 
