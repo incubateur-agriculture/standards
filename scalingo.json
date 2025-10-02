@@ -1,0 +1,68 @@
+{
+  "name": "survey-builder",
+  "description": "Outil d'audit",
+  "repository": "https://github.com/incubateur-territoires/survey-builder",
+  "logo": "https://raw.githubusercontent.com/incubateur-territoires/survey-builder/main/public/assets/logos/anct.svg",
+  "keywords": ["nextjs", "react", "audit", "startup", "grist"],
+  "success_url": "/",
+  "env": {
+    "NODE_ENV": {
+      "description": "Environnement d'exécution",
+      "value": "production"
+    },
+    "GRIST_URL": {
+      "description": "URL de l'API Grist (ex: https://grist.incubateur.anct.gouv.fr/api)",
+      "required": true
+    },
+    "GRIST_API_KEY": {
+      "description": "Clé API Grist pour l'authentification",
+      "required": true
+    },
+    "GRIST_DOC_ID": {
+      "description": "ID du document Grist contenant les données d'audit",
+      "required": true
+    },
+    "NEXT_PUBLIC_SENTRY_DSN": {
+      "description": "DSN Sentry pour le monitoring des erreurs (optionnel)",
+      "required": false
+    },
+    "SENTRY_ORG": {
+      "description": "Organisation Sentry (optionnel)",
+      "required": false
+    },
+    "SENTRY_PROJECT": {
+      "description": "Projet Sentry (optionnel)",
+      "required": false
+    },
+    "SENTRY_URL": {
+      "description": "URL Sentry (optionnel)",
+      "required": false
+    },
+    "SENTRY_ENV": {
+      "description": "Environnement Sentry (optionnel)",
+      "required": false
+    },
+    "NEXT_PUBLIC_MATOMO_URL": {
+      "description": "URL Matomo pour l'analytics (optionnel)",
+      "required": false
+    },
+    "NEXT_PUBLIC_MATOMO_SITE_ID": {
+      "description": "ID du site Matomo (optionnel)",
+      "required": false
+    }
+  },
+  "formation": {
+    "web": {
+      "amount": 1,
+      "size": "S"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "npm run build"
+  }
+}

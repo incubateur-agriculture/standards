@@ -1,0 +1,504 @@
+{
+  "name": "Oursin - Audit workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "9da5fcb2-62bd-4bd9-85f0-764e7b4d6044",
+        "authentication": "headerAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e1a57205-1d45-4ddc-9ba8-e2d7f3c04696",
+      "name": "Webhook",
+      "webhookId": "9da5fcb2-62bd-4bd9-85f0-764e7b4d6044",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "obfuscated",
+          "name": "Grist - Oursin webhook Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body[0].Statut }}",
+                    "rightValue": "🤖 Envoyer l'audit",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "f694eaf7-70a4-4df9-8212-03b917718e54"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Envoyer l'audit"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2c5bd9b8-ab03-4105-89bb-e70721a7cb45",
+                    "leftValue": "={{ $json.body[0].Statut }}",
+                    "rightValue": "🤖 Envoyer la reco",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Envoyer la reco"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        272,
+        0
+      ],
+      "id": "20b9efa7-dece-48e1-8aee-0c4b61af4687",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst {\n    Destinataires: recipients,\n    Comite_d_investissement: comite,\n    Produit_Nom: produit,\n    Production: auditLink\n  } = $('Webhook').item.json.body[0];\n\n  const subject = `${comite} Audit du produit ${produit}`;\n  const message = `Bonjour,  \n\nDans le cadre des comités d'investissement semestriels, un audit de chaque produit de l'incubateur des territoires est réalisé afin de vous proposer un ensemble de recommandations.\n\nN'hésitez pas à transmettre l'audit aux Intra, Bizdev et Produit pour qu'ils remplissent leur partie. \n\nPour chaque question, la réponse du dernier audit est affichée sous la question. De nouvelles questions ont été ajoutées et d'autres ont été retirées. Ce semestre l'accent est particulièrement mis sur l'accessibilité afin d'identifier la maturité de chaque équipe & produit et de proposer ensuite un accompagnement pertinent.\n\n\nCet audit se déroule en deux phases :\n\n1. 🌐 En tant qu'équipe travaillant sur le produit ${produit}, vous répondez aux questions de l'audit via ce formulaire : ${auditLink}\n2. 📅 Un entretien de 1h à 2h est organisé entre vous et l'équipe transverse technique.\n\n⚠️ Réservez un créneau d'entretien dès maintenant\nC'est super si les Intra, PM & Bizdev sont présents pendant 20-30 min lors de cet entretien.\n\nDeux résultats en découlent :\n- 🧰 Un ensemble de recommandations d'amélioration pour le produit, catégorisées en red flag, yellow flag ou normal.\n- 📝 Les attentes de l'équipe de la Startup vis-à-vis de l'équipe transverse, qui alimenteront potentiellement la roadmap transverse.\n\nLa plupart des questions sont conçues pour que la réponse Oui soit souhaitable. Néanmoins, il peut y avoir des situations où il est tout à fait pertinent de répondre Non. Dans ce cas, veuillez laisser un commentaire expliquant votre situation.\n\nOn constate une belle dynamique sur les audits. Les équipes qui s'investissent dans les réponses (réponses complètes, mises à jour régulières des infos, retours proactifs) et mettent en place les recommandations qu'on leur propose ont moins de temps à consacrer au processus global.\n\nAttention : Ce formulaire ne gère pas encore l'édition simultanée. Si vous êtes plusieurs à y travailler en même temps, vous risquez d'écraser les réponses des autres.\n\nLes comités d'investissement approchent. Plus tôt nous finaliserons l'audit, mieux vous pourrez préparer le comité.\n\nBon audit !\n`;\nreturn {\n  recipients: recipients.filter(email => email != 'L').map(email => ({email})),\n  cc: ['olivier.laurendeau@ext.anct.gouv.fr', 'nicolas.ritouet@anct.gouv.fr', 'florian.busi@ext.anct.gouv.fr', 'oscar.hemelaar@ext.anct.gouv.fr'].map(email => ({email})),\n  subject,\n  message\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        -128
+      ],
+      "id": "a1ad6e59-1a6a-4393-b925-5d35004d9ae7",
+      "name": "Formatage message audit"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/smtp/email",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "sendInBlueApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={  \n   \"sender\":{  \n      \"name\":\"Equipe transverse de l'incubateur des territoires\",\n      \"email\":\"support@incubateur.anct.gouv.fr\"\n   },\n   \"to\":{{ JSON.stringify($('Formatage message audit').item.json.recipients) }},\n   \"cc\": {{ JSON.stringify($('Formatage message audit').item.json.cc) }},\n   \"subject\": \"{{ $('Formatage message audit').item.json.subject }}\",\n   \"htmlContent\": \"{{ $('Formatage message audit').item.json.message.replace(/\\n/g, '<br/>')}}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        -128
+      ],
+      "id": "de38a041-ad20-4eee-9a28-cb9f55382089",
+      "name": "Envoi email audit",
+      "credentials": {
+        "sendInBlueApi": {
+          "id": "obfuscated",
+          "name": "Brevo"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://chat.incubateur.anct.gouv.fr/hooks/pdh7uhq9abnmix156dguy4qs8o",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"text\": \"{{ $json.message.replace(/\\n/g,'\\\\n') }}\",\n  \"channel\": \"{{ $('Webhook').item.json.body[0].Canal_mattermost }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        752,
+        -128
+      ],
+      "id": "e9a380d0-dcb3-484c-9202-615a56ec26ee",
+      "name": "Mattermost - Send message as Olivier Laurendeau"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "docId": "8p8azevm5WQ1",
+        "tableId": "AuditsAudits",
+        "rowId": "={{ $('Webhook').item.json.body[0].id }}",
+        "fieldsToSend": {
+          "properties": [
+            {
+              "fieldId": "=Statut",
+              "fieldValue": "✅ Envoyé"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.grist",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        -128
+      ],
+      "id": "92fe4bb5-fc16-4aa7-9d0e-ddc401f278ef",
+      "name": "Grist",
+      "credentials": {
+        "gristApi": {
+          "id": "obfuscated",
+          "name": "Grist - Olivier Laurendeau"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://grist.incubateur.anct.gouv.fr/api/docs/9q4FTFN7YfU6/tables/AuditsRecommandations/records",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "filter",
+              "value": "={\"Produit\": [{{ $json.body[0].Produit }}]} "
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        528,
+        112
+      ],
+      "id": "a4e0452d-f130-4acf-ae10-01d288e6d82b",
+      "name": "Grist - Get Recommandations",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "obfuscated",
+          "name": "Grist API Olivier"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://chat.incubateur.anct.gouv.fr/hooks/pdh7uhq9abnmix156dguy4qs8o",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"text\": \"{{ $json.message.replace(/\\n/g,'\\\\n') }}\",\n  \"channel\": \"{{ $('Webhook').item.json.body[0].Canal_mattermost }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        112
+      ],
+      "id": "fc57e4e1-026c-4266-abe3-a4795795bc91",
+      "name": "Mattermost - Send message as Olivier Laurendeau1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/smtp/email",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "sendInBlueApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={  \n   \"sender\":{  \n      \"name\":\"Equipe transverse de l'incubateur des territoires\",\n      \"email\":\"support@incubateur.anct.gouv.fr\"\n   },\n   \"to\":{{ JSON.stringify($('Formatage message reco').item.json.recipients) }},\n   \"cc\": {{ JSON.stringify($('Formatage message reco').item.json.cc) }},\n   \"subject\": \"{{ $('Formatage message reco').item.json.subject }}\",\n   \"htmlContent\": \"{{ $('Formatage message reco').item.json.message.replace(/\\n/g, '<br/>')}}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1184,
+        112
+      ],
+      "id": "925036a9-dc3c-44fd-b5ca-ae200860d0a9",
+      "name": "Envoi email audit1",
+      "credentials": {
+        "sendInBlueApi": {
+          "id": "obfuscated",
+          "name": "Brevo Incubateur"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "function trierRecordsParPrioriteEtDate(records) {\n  return [...records].sort((a, b) => {\n    // Déterminer la valeur de priorité pour chaque record\n    const getPrioriteValue = (priorite) => {\n      switch(priorite) {\n        case \"🔴\": return 2;\n        case \"🟡\": return 1;\n        default: return 0;\n      }\n    };\n    \n    const prioriteA = getPrioriteValue(a.fields.Priorite);\n    const prioriteB = getPrioriteValue(b.fields.Priorite);\n    \n    // Si les priorités sont différentes, trier par priorité décroissante\n    if (prioriteA !== prioriteB) {\n      return prioriteB - prioriteA;\n    }\n    \n    // Sinon, trier par date (les plus anciens d'abord)\n    const dateA = a.fields.Audit_Comite_d_investissement;\n    const dateB = b.fields.Audit_Comite_d_investissement;\n    \n    // Extraire la saison (S1 ou S2) et l'année pour chaque date\n    const [saisonA, anneeA] = dateA.split(\"-\");\n    const [saisonB, anneeB] = dateB.split(\"-\");\n    \n    // Comparer d'abord les années\n    if (anneeA !== anneeB) {\n      return parseInt(anneeA) - parseInt(anneeB);\n    }\n    \n    // Si les années sont identiques, comparer les saisons\n    return saisonA === \"S1\" ? -1 : 1;\n  });\n}\n\nconst {\n  Destinataires: recipients,\n  Comite_d_investissement: comite,\n  Produit_Nom: produit,\n  Production: auditLink\n} = $('Webhook').first().json.body[0];\n\nconst recommandations = trierRecordsParPrioriteEtDate($(\"Grist - Get Recommandations\").first()\n  .json\n  .records\n  .filter(record => record.fields.Statut != 'Fait')\n);\n\nconst subject = `${comite} Audit du produit ${produit}`;\nconst message = `Bonjour,\n\nMerci beaucoup pour notre échange dans le cadre de l'audit du produit ${produit}, à la suite de celui-ci nous vous proposons les recommandations suivantes.\n\nN'hésitez pas si vous avez des questions ou des remarques.\n\nLégende\n🔴 Forte recommandation de l'équipe technique transverse, devrait être résolu d'ici au prochain audit.\n🟡 Recommandation importante, il nous paraît pertinent de le résoudre d'ici le prochain audit\n\nRecommandations ${produit} :\n${recommandations.map(record => `- [Audit ${record.fields.Audit_Comite_d_investissement}] ${record.fields.Priorite} ${record.fields.Recommandation}`).join('\\n')}\n\nLien vers l'audit : ${auditLink}\n\nBonne journée !\n`;\nreturn {\n  recipients: recipients.filter(email => email != 'L').map(email => ({email})),\n  cc: ['olivier.laurendeau@ext.anct.gouv.fr', 'nicolas.ritouet@anct.gouv.fr', 'florian.busi@ext.anct.gouv.fr', 'oscar.hemelaar@ext.anct.gouv.fr'].map(email => ({email})),\n  subject,\n  message\n}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        752,
+        112
+      ],
+      "id": "ef135394-fead-4db0-add2-0ed6b9479570",
+      "name": "Formatage message reco"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "docId": "8p8azevm5WQ1",
+        "tableId": "AuditsAudits",
+        "rowId": "={{ $('Webhook').item.json.body[0].id }}",
+        "fieldsToSend": {
+          "properties": [
+            {
+              "fieldId": "=Statut",
+              "fieldValue": "✅ Reco"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.grist",
+      "typeVersion": 1,
+      "position": [
+        1408,
+        112
+      ],
+      "id": "44518ca4-0a28-4513-8930-9a1b908ae0be",
+      "name": "Grist1",
+      "credentials": {
+        "gristApi": {
+          "id": "obfuscated",
+          "name": "Grist - Olivier Laurendeau"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.incubateur.anct.gouv.fr",
+            "x-forwarded-proto": "https",
+            "x-real-ip": "142.44.48.22",
+            "x-forwarded-port": "443",
+            "x-forwarded-for": "142.44.48.22",
+            "connection": "close",
+            "content-length": "1505",
+            "content-type": "application/json",
+            "authorization": "8EgjmPsV9wcrXbDQ@J$uSvawZr!UoN",
+            "accept": "*/*",
+            "user-agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)",
+            "accept-encoding": "gzip,deflate",
+            "x-request-id": "05fed466-ca7d-4c19-9a59-15d187c01daa",
+            "x-request-start": "t=1751968345.727"
+          },
+          "params": {},
+          "query": {},
+          "body": [
+            {
+              "id": 59,
+              "manualSort": 59,
+              "Hash": "O9V2qyn6",
+              "Statut": "🤖 Envoyer la reco",
+              "Produit": 48,
+              "Comite_d_investissement": "S1-2025",
+              "Date_comite_d_investissment": null,
+              "Cloture": true,
+              "Cloture_le": null,
+              "Commentaires": "",
+              "Staging": "https://survey-builder-anct-staging.osc-fr1.scalingo.io/audit/O9V2qyn6",
+              "Completion": 0,
+              "Score": 0,
+              "Production": "https://audit.incubateur.anct.gouv.fr/audit/O9V2qyn6",
+              "Email_recommandation": "\n\nObjet : S1-2025 Recommandations technique pour le produit Produit fictif pour l'audit\n\nBonjour,\n\nMerci beaucoup pour notre échange de la semaine dernière, à la suite de celui-ci nous vous proposons les recommandations suivantes.\n\nOn vous laisse choisir si vous souhaitez partager ces informations lors du comité d'investissement.\n\nN'hésitez pas si vous avez des questions ou des remarques.\n\nLégende\n🔴 Forte recommandation de l'équipe technique transverse, devrait être résolu d'ici au prochain audit.\n🟡 Recommandation importante, il nous paraît pertinent de le résoudre d'ici le prochain audit\n\nRecommandations Produit fictif pour l'audit\n* 🔴 Oulala très important\n* 🟡 Moins important\n*  Pas important\n\nBonne journée !",
+              "Destinataires": [
+                "L",
+                "olivier.laurendeau@ext.anct.gouv.fr"
+              ],
+              "Nom_audit": "Produit fictif pour l'audit - S1-2025",
+              "Produit_Nom": "Produit fictif pour l'audit",
+              "Canal_mattermost": "incubateur-test-activepieces",
+              "Startup": 92,
+              "gristHelper_Display": "Startup fictive pour l'audit",
+              "gristHelper_Display2": "Produit fictif pour l'audit"
+            }
+          ],
+          "webhookUrl": "https://n8n.incubateur.anct.gouv.fr/webhook-test/9da5fcb2-62bd-4bd9-85f0-764e7b4d6044",
+          "executionMode": "test"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Formatage message audit",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Grist - Get Recommandations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatage message audit": {
+      "main": [
+        [
+          {
+            "node": "Mattermost - Send message as Olivier Laurendeau",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Envoi email audit": {
+      "main": [
+        [
+          {
+            "node": "Grist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mattermost - Send message as Olivier Laurendeau": {
+      "main": [
+        [
+          {
+            "node": "Envoi email audit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grist - Get Recommandations": {
+      "main": [
+        [
+          {
+            "node": "Formatage message reco",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mattermost - Send message as Olivier Laurendeau1": {
+      "main": [
+        [
+          {
+            "node": "Envoi email audit1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatage message reco": {
+      "main": [
+        [
+          {
+            "node": "Mattermost - Send message as Olivier Laurendeau1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Envoi email audit1": {
+      "main": [
+        [
+          {
+            "node": "Grist1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "timeSavedPerExecution": 10,
+    "errorWorkflow": "jfXGhOrbml8ULdSF"
+  },
+  "versionId": "2951c21f-a1f9-413f-aef1-09b8c8eab351",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "64b538dadf8cb304bf93401f92316a2a374b37d2138ad80b277949ff52fd80c4"
+  },
+  "id": "XqCL8cibhUunx5vI",
+  "tags": [
+    {
+      "createdAt": "2025-07-08T06:59:02.460Z",
+      "updatedAt": "2025-07-08T06:59:02.460Z",
+      "id": "bO7JQnJJL4VZg7Kn",
+      "name": "Tech transverse"
+    },
+    {
+      "createdAt": "2025-07-08T09:45:42.118Z",
+      "updatedAt": "2025-07-08T09:45:42.118Z",
+      "id": "i0dAvJR2tRIcSvpM",
+      "name": "Oursin"
+    }
+  ]
+}

@@ -13,10 +13,23 @@ Cette application est construite avec **Next.js** et utilise **react-dsfr** pour
 
 ## Prérequis
 
-- **Node.js** (~20)
+- **Node.js** (~24)
 - **Grist** pour la gestion des données
+- (Optionnel) **N8N** pour l'automatisation du process d'audit
 
-## Installation
+## Déploiement rapide
+
+[![Deploy to Scalingo](https://cdn.scalingo.com/deploy/button.svg)](https://my.scalingo.com/deploy?source=https://github.com/incubateur-territoires/survey-builder)
+
+Cliquez sur le bouton ci-dessus pour déployer l'application en un clic sur Scalingo. Vous devrez configurer les variables d'environnement suivantes :
+
+- **GRIST_URL** : URL de votre API Grist (ex: `https://grist.incubateur.anct.gouv.fr/api`)
+- **GRIST_API_KEY** : Votre clé API Grist
+- **GRIST_DOC_ID** : L'ID du document Grist contenant les données d'audit
+
+Les autres variables (Sentry, Matomo) sont optionnelles.
+
+## Installation locale
 
 1. Copiez le fichier d'exemple de configuration `.env.template` en `.env.local` :
    ```bash
@@ -28,12 +41,7 @@ Cette application est construite avec **Next.js** et utilise **react-dsfr** pour
    npm install
    ```
 
-3. Compilez l'application pour la production :
-   ```bash
-   npm run build
-   ```
-
-4. Lancez l'application en mode développement :
+3. Lancez l'application en mode développement :
    ```bash
    npm run dev
    ```
@@ -53,9 +61,19 @@ L'application utilise Grist pour gérer les données d'audit. Suivez ces étapes
 
 L'application utilise Grist comme backend pour gérer les données d'audit. Grist centralise les questions, catégories et réponses dans un document dédié, permettant une gestion fluide et structurée des audits techniques.
 
-Ce document Grist est préconfiguré pour fonctionner avec l'application. Un exemple exporté est disponible dans le dossier `grist-template/` de ce dépôt et peut être importé dans votre compte Grist. Il contient un ensemble de questions et un produit de test pour faciliter la mise en place de l'outil en local.
+Ce document Grist est préconfiguré pour fonctionner avec l'application. Un exemple exporté est disponible dans le dossier `templates/` de ce dépôt et peut être importé dans votre compte Grist. Il contient un ensemble de questions et un produit de test pour faciliter la mise en place de l'outil en local.
 
 Le process pour réaliser un audit est documenté sur le Notion de l'incubateur des territoires : https://incubateurdesterritoires.notion.site/Audits-techniques-Processus-11f744bf03dd80c490cccdf316fe0248
+
+## Intégration avec N8N (Optionnelle)
+
+Des automatisations sont disponibles pour gérer les envois de mail d'audit et de recommandations, un template est disponible dans le dossier `templates/` de ce dépôt pour l'importer dans votre repository
+
+## Intégration avec Sentry (Optionnelle)
+Vous pouvez configurer Sentry via les variables d'environnement
+
+## Intégration avec Matomo (Optionnelle)
+Vous pouvez configurer Matomo via les variables d'environnement
 
 ## Processus de publication
 
