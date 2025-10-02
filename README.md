@@ -17,18 +17,6 @@ Cette application est construite avec **Next.js** et utilise **react-dsfr** pour
 - **Grist** pour la gestion des données
 - (Optionnel) **N8N** pour l'automatisation du process d'audit
 
-## Déploiement rapide
-
-[![Deploy to Scalingo](https://cdn.scalingo.com/deploy/button.svg)](https://my.scalingo.com/deploy?source=https://github.com/incubateur-territoires/survey-builder)
-
-Cliquez sur le bouton ci-dessus pour déployer l'application en un clic sur Scalingo. Vous devrez configurer les variables d'environnement suivantes :
-
-- **GRIST_URL** : URL de votre API Grist (ex: `https://grist.incubateur.anct.gouv.fr/api`)
-- **GRIST_API_KEY** : Votre clé API Grist
-- **GRIST_DOC_ID** : L'ID du document Grist contenant les données d'audit
-
-Les autres variables (Sentry, Matomo) sont optionnelles.
-
 ## Installation locale
 
 1. Copiez le fichier d'exemple de configuration `.env.template` en `.env.local` :
