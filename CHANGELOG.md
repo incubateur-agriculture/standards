@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.0](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.5.0...v1.6.0) (2025-10-02)
+
+
+### Features
+
+* **recommandations:** display reco and allow status updates ([a181619](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/a181619b5129f2d0a8e294fdd2426325582434b6))
+
+
+### Bug Fixes
+
+* **consommations:** add identifiant column ([c8db791](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/c8db791c8cfbebed65950c32a734b4b8528c8044))
+
 ## [1.5.0](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.4.2...v1.5.0) (2025-10-02)
 
 
