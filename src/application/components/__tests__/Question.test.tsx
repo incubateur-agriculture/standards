@@ -1,9 +1,15 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi, beforeEach } from 'vitest'
 import userEvent from '@testing-library/user-event'
 import { cleanup, render, screen, waitFor } from '@testing-library/react'
 import { Audit, Question as QuestionType } from '@/domain/types'
 import { mock } from 'vitest-mock-extended'
 import Question from '../Question'
+
+// Mock console.error to suppress error logs during tests
+const originalConsoleError = console.error
+beforeEach(() => {
+  console.error = vi.fn()
+})
 
 const audit = {
     ...mock<Audit>(),
@@ -19,6 +25,7 @@ afterEach(() => {
     cleanup();
     vi.clearAllMocks();
     vi.clearAllTimers();
+    console.error = originalConsoleError;
 });
 
 describe('Test Question component in form mode', async () => {

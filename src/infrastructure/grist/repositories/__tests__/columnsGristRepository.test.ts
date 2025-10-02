@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { fetchColumnOptions, fetchOutilsMutualisesOptions, fetchOutilsNonMutualisesOptions } from '../columnsGristRepository'
 import { apiClient } from '@/infrastructure/grist/client/gristApiClient'
 import { GRIST } from '@/infrastructure/grist/constants/gristConstants'
@@ -9,6 +9,16 @@ vi.mock('@/infrastructure/grist/client/gristApiClient', () => ({
     get: vi.fn()
   }
 }))
+
+// Mock console.error to suppress error logs during tests
+const originalConsoleError = console.error
+beforeEach(() => {
+  console.error = vi.fn()
+})
+
+afterEach(() => {
+  console.error = originalConsoleError
+})
 
 describe('columnsGristRepository', () => {
   beforeEach(() => {
