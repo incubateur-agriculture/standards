@@ -106,7 +106,7 @@ describe('auditsGristRepository', () => {
                 }
             }
 
-            vi.mocked(apiClient.get).mockResolvedValue({ 
+            vi.mocked(apiClient.get).mockResolvedValue({
                 data: { records: [mockGristAudit] }
             })
 
@@ -123,10 +123,29 @@ describe('auditsGristRepository', () => {
                 {
                     id: 122,
                     fields: {
-                        [GRIST.AUDITS.FIELDS.HASH]: 'previous-hash',
+                        [GRIST.AUDITS.FIELDS.HASH]: 'previous-hash-S1-2024',
                         [GRIST.AUDITS.FIELDS.COMITE_INVESTISSEMENT]: 1672531200,
                         [GRIST.AUDITS.FIELDS.CLOTURE]: true,
-                        [GRIST.AUDITS.FIELDS.CLOTURE_LE]: 1672617600,
+                        [GRIST.AUDITS.FIELDS.CLOTURE_LE]: 1721001600,
+                        [GRIST.AUDITS.FIELDS.PRODUIT]: 456
+                    }
+                },
+                {
+                    id: 124,
+                    fields: {
+                        [GRIST.AUDITS.FIELDS.HASH]: 'previous-hash-S2-2024',
+                        [GRIST.AUDITS.FIELDS.CLOTURE]: true,
+                        [GRIST.AUDITS.FIELDS.CLOTURE_LE]: 1735603200,
+                        [GRIST.AUDITS.FIELDS.PRODUIT]: 456
+                    }
+                },
+                {
+                    id: 125,
+                    fields: {
+                        [GRIST.AUDITS.FIELDS.HASH]: 'previous-hash-S1-2025',
+                        [GRIST.AUDITS.FIELDS.COMITE_INVESTISSEMENT]: 1749600000,
+                        [GRIST.AUDITS.FIELDS.CLOTURE]: true,
+                        [GRIST.AUDITS.FIELDS.CLOTURE_LE]: 1756598400,
                         [GRIST.AUDITS.FIELDS.PRODUIT]: 456
                     }
                 },
@@ -134,9 +153,7 @@ describe('auditsGristRepository', () => {
                     id: 123,
                     fields: {
                         [GRIST.AUDITS.FIELDS.HASH]: 'test-hash',
-                        [GRIST.AUDITS.FIELDS.COMITE_INVESTISSEMENT]: 1704067200,
                         [GRIST.AUDITS.FIELDS.CLOTURE]: false,
-                        [GRIST.AUDITS.FIELDS.CLOTURE_LE]: 1704153600,
                         [GRIST.AUDITS.FIELDS.PRODUIT]: 456
                     }
                 }
@@ -150,8 +167,8 @@ describe('auditsGristRepository', () => {
             }
 
             const mockMappedAudit = {
-                id: 122,
-                dateComiteInvestissement: new Date('2023-01-01T00:00:00.000Z'),
+                id: 125,
+                dateComiteInvestissement: new Date('2025-06-11T00:00:00.000Z'),
                 cloture: true,
                 clotureLe: new Date('2023-01-02T00:00:00.000Z'),
                 produit: {
@@ -170,14 +187,14 @@ describe('auditsGristRepository', () => {
 
             // Assert
             expect(result).toEqual(mockMappedAudit)
-            expect(mapGristAuditToAudit).toHaveBeenCalledWith(mockGristAudits[0], mockGristProduit)
+            expect(mapGristAuditToAudit).toHaveBeenCalledWith(mockGristAudits[2], mockGristProduit)
 
             expect(apiClient.get).toHaveBeenCalledWith(
                 `/tables/${GRIST.AUDITS.ID}/records`,
                 {
                     params: {
                         filter: `{"${GRIST.AUDITS.FIELDS.PRODUIT}":[456]}`,
-                        sort: GRIST.AUDITS.FIELDS.COMITE_INVESTISSEMENT
+                        sort: GRIST.AUDITS.FIELDS.CLOTURE_LE
                     }
                 }
             )

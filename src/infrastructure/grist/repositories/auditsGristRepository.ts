@@ -35,13 +35,13 @@ async function getPreviousGristAudit(produitId: number, auditHash: string) {
     const response = await apiClient.get(`/tables/${GRIST.AUDITS.ID}/records`, {
         params: {
             filter: `{"${GRIST.AUDITS.FIELDS.PRODUIT}":[${produitId}]}`,
-            sort: `${GRIST.AUDITS.FIELDS.COMITE_INVESTISSEMENT}`
+            sort: `${GRIST.AUDITS.FIELDS.CLOTURE_LE}`
         }
     });
 
     const audits = response.data.records;
     const currentAuditIndex = audits.findIndex((audit: any) => audit.fields[GRIST.AUDITS.FIELDS.HASH] === auditHash);
-    
+
     if (currentAuditIndex === -1 || currentAuditIndex === 0) {
         return null;
     }
