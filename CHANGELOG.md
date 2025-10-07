@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.1](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.6.0...v1.6.1) (2025-10-07)
+
+
+### Bug Fixes
+
+* retrieve previous audit using date instead of string ([90ec62b](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/90ec62b185d267da40e6de043f5f7aef6a90ded8))
+
 ## [1.6.0](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.5.0...v1.6.0) (2025-10-02)
 
 
