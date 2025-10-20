@@ -9,8 +9,8 @@ import {
 /**
  * Récupère toutes les consommations d'un produit
  */
-export async function getConsommationsByProduitId(produitId: number): Promise<Consommation[]> {
-  return findGristConsommationsByProduitId(produitId)
+export async function getConsommationsByProduitMaitreId(produitMaitreId: number): Promise<Consommation[]> {
+  return findGristConsommationsByProduitId(produitMaitreId)
 }
 
 /**

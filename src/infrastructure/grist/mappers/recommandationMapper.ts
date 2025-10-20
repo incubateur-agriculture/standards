@@ -22,3 +22,4 @@ export const mapGristRecommandationToRecommandation = (gristRecommandation: Gris
         comiteInvestissement: gristRecommandation.fields[GRIST.RECOMMANDATIONS.FIELDS.COMITE_INVESTISSEMENT] as string,
     }
 }
+

@@ -29,6 +29,7 @@ export interface Question {
 export interface Produit {
     id: number
     nom: string
+    idProduitMaitre?: number,
     startupId?: number
     statut?: string
     typeProjet?: string

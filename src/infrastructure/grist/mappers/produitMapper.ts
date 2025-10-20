@@ -14,6 +14,7 @@ export interface GristProduit {
 export function mapGristProduitToProduit(gristProduit: GristProduit): Produit {
     return {
         id: gristProduit.id,
+        idProduitMaitre: gristProduit.fields[GRIST.PRODUITS.FIELDS.ID_PRODUIT_MAITRE] as number | undefined,
         nom: gristProduit.fields[GRIST.PRODUITS.FIELDS.NOM] as string,
         startupId: gristProduit.fields[GRIST.PRODUITS.FIELDS.STARTUP_ID] as number | undefined,
         statut: gristProduit.fields[GRIST.PRODUITS.FIELDS.STATUT] as string,

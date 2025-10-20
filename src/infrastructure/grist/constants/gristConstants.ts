@@ -40,6 +40,7 @@ export const GRIST = {
     PRODUITS: {
         ID: "AuditsProduits",
         FIELDS: {
+            ID_PRODUIT_MAITRE: 'ProduitMaitreID',
             TYPE: "Type",
             MUTUALISE: "Mutualise",
             NOM: "Nom",

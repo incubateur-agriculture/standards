@@ -12,6 +12,7 @@ export async function findConsommationsByProduitIdAndDate(
     produitId: number, 
     date: Date
 ): Promise<Consommation[]> {
+    console.log('findConsommationsByProduitIdAndDate', produitId, date)
     const gristConsommations = await getGristConsommationsByProduitIdAndDate(produitId, date)
     return Promise.all(gristConsommations.map(gristConsommation => mapGristConsommationToConsommation(gristConsommation)))
 }

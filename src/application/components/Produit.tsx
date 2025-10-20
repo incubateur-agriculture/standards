@@ -89,7 +89,7 @@ export default function Produit({
                 </div>
             </div>
 
-            <Consommation produitId={produit.id} />
+            <Consommation produitId={produit.idProduitMaitre} />
             <Recommandations produitId={produit.id} />
 
             <Alert

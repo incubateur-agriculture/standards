@@ -6,7 +6,7 @@ import { Accordion } from '@codegouvfr/react-dsfr/Accordion'
 import { useEffect, useState } from 'react'
 
 interface ConsommationProps {
-  produitId: number
+  produitId: number | undefined
 }
 
 export default function Consommation({ produitId }: ConsommationProps) {
@@ -16,6 +16,10 @@ export default function Consommation({ produitId }: ConsommationProps) {
 
   useEffect(() => {
     const fetchConsommations = async () => {
+      if (!produitId) {
+        return;
+      }
+      
       try {
         setLoading(true)
         setError(null)
@@ -33,6 +37,10 @@ export default function Consommation({ produitId }: ConsommationProps) {
       fetchConsommations()
     }
   }, [produitId])
+
+  if (!produitId) {
+    return <></>
+  }
 
   if (loading) {
     return (

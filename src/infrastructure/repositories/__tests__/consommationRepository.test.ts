@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { getConsommationsByProduitId, getConsommationsDuDernierMois } from '../consommationRepository'
+import { getConsommationsByProduitMaitreId, getConsommationsDuDernierMois } from '../consommationRepository'
 import * as consommationsGristRepository from '@/infrastructure/grist/repositories/consommationsGristRepository'
 
 // Mock the grist repository
@@ -28,7 +28,7 @@ describe('consommationRepository', () => {
 
       vi.mocked(consommationsGristRepository.findConsommationsByProduitId).mockResolvedValue(mockConsommations)
 
-      const result = await getConsommationsByProduitId(123)
+      const result = await getConsommationsByProduitMaitreId(123)
 
       expect(consommationsGristRepository.findConsommationsByProduitId).toHaveBeenCalledWith(123)
       expect(result).toEqual(mockConsommations)

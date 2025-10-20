@@ -13,6 +13,7 @@ export function mapGristAuditToAudit(gristAudit: any, gristProduit: any): Audit|
         clotureLe: new Date(gristAudit.fields[GRIST.AUDITS.FIELDS.CLOTURE_LE] * 1000),
         produit: {
             id: gristProduit.id,
+            idProduitMaitre: gristProduit.fields[GRIST.PRODUITS.FIELDS.ID_PRODUIT_MAITRE],
             nom: gristProduit.fields[GRIST.PRODUITS.FIELDS.NOM]
         }
     }

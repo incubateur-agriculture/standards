@@ -41,3 +41,4 @@ export async function updateRecommandationStatut(
 ): Promise<void> {
   return updateGristRecommandationStatut(recommandationId, nouveauStatut)
 }
+
