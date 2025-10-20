@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.2](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.6.1...v1.6.2) (2025-10-20)
+
+
+### Bug Fixes
+
+* **consommations:** use id of OutilsEtProduits, not AuditsProduits ([041e614](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/041e61405bf2d04b69adfc95a1ad729ceef5d746))
+
 ## [1.6.1](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.6.0...v1.6.1) (2025-10-07)
 
 
