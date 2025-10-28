@@ -1,1 +1,1 @@
-postdeploy: return 255 
+postdeploy: grep anct anct || return 0
