@@ -1,1 +1,1 @@
-postdeploy: grep anct anct || return 0
+postdeploy: ./postdeploy.sh
