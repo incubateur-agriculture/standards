@@ -13,8 +13,8 @@ import { Matomo } from "@/application/components/Matomo";
 
 export const metadata: Metadata = {
   title: {
-    default: "Audit technique - Incubateur des Territoires (ANCT)",
-    template: "%s | Audit technique - Incubateur des Territoires (ANCT)",
+    default: "Audit technique - La Ruche Numérique (MASA)",
+    template: "%s | Audit technique - La Ruche Numérique (MASA)",
   },
 };
 
@@ -57,14 +57,14 @@ export default async function RootLayout({
                 className="pb-4"
                 brandTop={<>République<br/>Française</>}
                 operatorLogo={{
-                  imgUrl: "/assets/logos/anct.svg",
-                  alt: "Logo de l'Agence Nationale de la Cohésion des Territoires",
+                  imgUrl: "/assets/logos/ruche.png",
+                  alt: "Logo de la Ruche Numérique",
                   orientation: "horizontal",
                 }}
-                serviceTitle={"Audits techniques - Incubateur des territoires - ANCT"}
+                serviceTitle={"Audits techniques - La Ruche Numérique - MASA"}
                 homeLinkProps={{
                   href: "/",
-                  title: "Audits techniques - Incubateur des Territoires - ANCT",
+                  title: "Audits techniques - La Ruche Numérique - MASA",
                 }}
                 quickAccessItems={[headerFooterDisplayItem]}
               />

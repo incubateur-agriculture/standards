@@ -3,26 +3,11 @@ export default function Page() {
         <div>
             <h2>Mentions légales</h2>
             <h3>Éditeur</h3>
-            Ce site est édité par l&apos;équipe de l&apos;Incubateur des Territoires, une mission de l&apos;Agence Nationale de la Cohésion des Territoires.
-
-            <h3>Contact</h3>
-            Agence Nationale de la Cohésion des Territoires
-
-            Mission incubateur de services numériques
-
-            20, avenue de Ségur
-
-            75 334 Paris Cedex 07
-
-            Téléphone : +33 1 85 58 60 00
-
-            <h3>Directeur de publication</h3>
-            Laurent Rojey, Directeur général délégué au numérique
+            Ce site est édité par l&apos;équipe de la Ruche Numérique.
 
             <h3>Informations techniques</h3>
-            Ce site est conçu et développé par l&apos;équipe de l&apos;Incubateur des Territories. De nouvelles fonctionnalités sont ajoutées en continu.
 
-            Le code source du site est disponible sur <a href="https://gitlab.com/incubateur-territoires/incubateur/survey-builder">GitLab</a>.
+            Le code source du site est disponible sur <a href="https://github.com/incubateur-agriculture/standards">Github</a>.
 
             Nous utilisons des frameworks libres : NextJS et le Système de Design de l&apos;État.
 
@@ -53,7 +38,7 @@ export default function Page() {
             </p>
 
             <h3>Licence</h3>
-            L&apos;Incubateur des Territoires a choisi de placer par défaut ses documents sous Licence Libre MIT. Cela signifie que, sauf mention contraire, vous êtes libres de réutiliser toute information publique mise à disposition sur ce site, gratuitement et sans restriction d’usage, à la seule condition de citer la source de l’information (L&apos;Incubateur des Territoires) et la date de dernière mise à jour de l’information réutilisée (par exemple avec un lien hypertexte).
+            La Ruche Numérique a choisi de placer par défaut ses documents sous Licence Libre MIT. Cela signifie que, sauf mention contraire, vous êtes libres de réutiliser toute information publique mise à disposition sur ce site, gratuitement et sans restriction d’usage, à la seule condition de citer la source de l’information (L&apos;Incubateur des Territoires) et la date de dernière mise à jour de l’information réutilisée (par exemple avec un lien hypertexte).
         </div>
     );
 }

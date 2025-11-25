@@ -20,8 +20,8 @@ export function Footer() {
         title: "Accueil - Audit technique - ANCT",
       }}
       operatorLogo={{
-        imgUrl: "/assets/logos/anct.svg",
-        alt: "Logo de l'Agence Nationale de la Cohésion des Territoires",
+        imgUrl: "/assets/logos/ruche.png",
+        alt: "Logo de la Ruche Numérique",
         orientation: "horizontal",
       }}
       accessibility="non compliant"
@@ -32,8 +32,8 @@ export function Footer() {
       }}
       contentDescription={
         <>
-          Ce site est un outil d&apos;audit technique développé par l&apos;Incubateur des Territoires, un programme de l&apos;Agence Nationale de la Cohésion des Territoires. 
-          Son code source est publié en open source et disponible sur <a href="https://gitlab.com/incubateur-territoires/incubateur/survey-builder" target="_blank" rel="noopener noreferrer">GitLab</a>. 
+          Ce site est un outil d&apos;audit technique de la Ruche Numérique.
+          Son code source est publié en open source et disponible sur <a href="https://github.com/incubateur-agriculture/standards" target="_blank" rel="noopener noreferrer">GitHub</a>. 
           Le design s&apos;appuie sur le système de design de l&apos;État.
         </>
       }

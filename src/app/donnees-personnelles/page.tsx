@@ -143,7 +143,7 @@ export default function Page() {
         <h2 className="fr-h3">Délais de réponse</h2>
 
         <p>
-          L’Agence nationale de la cohésion des territoires s’engage à répondre
+          La Ruche Numérique s’engage à répondre
           à votre demande d’accès, de rectification ou d’opposition ou toute
           autre demande complémentaire d’informations dans un délai raisonnable
           qui ne saurait dépasser 1 mois à compter de la réception de votre

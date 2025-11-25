@@ -7,7 +7,7 @@ export default function Page() {
           <p className="hint">Établie le 8 octobre 2024.</p>
   
           <p className="fr-text--lead">
-            L’Agence nationale de la cohésion des territoires s’engage à rendre
+            La Ruche Numérique s’engage à rendre
             son service accessible, conformément à l’article 47 de la loi n°
             2005-102 du 11 février 2005.
           </p>
@@ -17,7 +17,7 @@ export default function Page() {
           </p>
   
           <p className="fr-text--lead">
-            Le site <b>audit tech de l&apos;incubateur des territoires</b> est en cours de
+            Le site <b>audit tech de la Ruche Numérique</b> est en cours de
             développement et nous nous efforçons de la rendre accessible et
             conforme avec le RGAA 4.1.
           </p>
@@ -27,7 +27,7 @@ export default function Page() {
           <h2 className="fr-h3">État de conformité</h2>
   
           <p>
-            <b>audit tech de l&apos;incubateur des territoires</b> est <b>non conforme</b> avec le
+            <b>audit tech de la Ruche Numérique</b> est <b>non conforme</b> avec le
             RGAA. Le site n’a pas encore été audité.
           </p>
   
