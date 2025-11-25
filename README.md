@@ -1,6 +1,7 @@
-# Audit Technique - Incubateur des Territoires
+# Outil standards de la Ruche Numérique
 
-Bienvenue dans l'outil d'audit technique de l'incubateur des territoires. Cet outil permet d'évaluer les startups pour les préparer aux comités d'investissement. L'objectif de l'audit est de rendre visible la dette technique et de garantir la pérennité des produits numériques développés.
+> [!NOTE] 
+> Cet outil est un fork de [l'outil d'audit technique de l'incubateur des territoires](https://gitlab.com/incubateur-territoires/incubateur/survey-builder)
 
 Cette application est construite avec **Next.js** et utilise **react-dsfr** pour l'intégration des composants de l'interface utilisateur. Elle est déployée sur la plateforme **Scalingo**, avec une gestion des questions, catégories et réponses via **Grist**.
 
