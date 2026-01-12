@@ -5,7 +5,12 @@ vi.mock('axios', () => ({
     default: {
         create: vi.fn(() => ({
             get: vi.fn(),
-            put: vi.fn()
+            put: vi.fn(),
+            interceptors: {
+                response: {
+                    use: vi.fn()
+                }
+            }
         }))
     }
 }))

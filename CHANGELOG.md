@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.7](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.6.6...v1.6.7) (2025-12-12)
+
+
+### Bug Fixes
+
+* **security:** upgrade Next.js to 15.5.9 ([158fbf7](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/158fbf7f2c972c650385065199e4e8c8e72a5f8a))
+
+## [1.6.6](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.6.5...v1.6.6) (2025-12-11)
+
+
+### Bug Fixes
+
+* **security:** upgrade Next.js to 15.5.8 (CVE-2025-55184, CVE-2025-55183) ([b744e65](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/b744e65eb8241d2c01eccf6ff4ac3db9870c31e4))
+
+## [1.6.5](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.6.4...v1.6.5) (2025-12-11)
+
+
+### Bug Fixes
+
+* **test:** after improving axios integration ([4d84a60](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/4d84a60fe27ed42a36bed57b1da77aa0d1c63932))
+
+## [1.6.4](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.6.3...v1.6.4) (2025-12-09)
+
+## [1.6.3](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.6.2...v1.6.3) (2025-12-03)
+
+
+### Bug Fixes
+
+* **security:** upgrade Next.js and React to patch CVE-2025-55182 ([d9fb798](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/commit/d9fb798719a8d0b24f743e1cc5a01964ccb1efd5))
+
 ## [1.6.2](https://gitlab.com/incubateur-territoires/incubateur/survey-builder/compare/v1.6.1...v1.6.2) (2025-10-20)
 
 

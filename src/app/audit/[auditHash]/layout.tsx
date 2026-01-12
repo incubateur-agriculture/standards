@@ -7,11 +7,19 @@ export async function generateMetadata({
 }: {
   params: Promise<{ auditHash: string }>;
 } ): Promise<Metadata> {
-  const audit = await getAudit((await params).auditHash);
+  try {
+    const audit = await getAudit((await params).auditHash);
 
-  return {
-    title: `${audit?.produit.nom} - Audit technique - Incubateur - ANCT`,
-  };
+    return {
+      title: audit?.produit.nom
+        ? `${audit.produit.nom} - Audit technique - Incubateur - ANCT`
+        : 'Audit technique - Incubateur - ANCT',
+    };
+  } catch {
+    return {
+      title: 'Audit technique - Incubateur - ANCT',
+    };
+  }
 }
 
 export default function RootLayout({
