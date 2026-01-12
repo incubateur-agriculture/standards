@@ -111,4 +111,4 @@ export const GRIST = {
             COMITE_INVESTISSEMENT: "Audit_Comite_d_investissement"
         }
     }
-}; 
+} as const; 

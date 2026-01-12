@@ -1,6 +1,6 @@
 {
   "name": "survey-builder",
-  "version": "1.6.2",
+  "version": "1.6.7",
   "license": "MIT",
   "type": "module",
   "engines": {
@@ -14,6 +14,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "vitest --no-watch",
     "test-unit": "vitest --no-watch",
     "test-e2e": "playwright test",
     "test-ci": "vitest run --coverage && playwright test",
@@ -30,12 +31,12 @@
     "@socialgouv/matomo-next": "^1.9.2",
     "@tailwindcss/postcss": "^4.1.13",
     "@testing-library/user-event": "^14.6.1",
-    "axios": "^1.12.2",
+    "axios": "^1.13.2",
     "dotenv": "^17.2.2",
     "lodash": "^4.17.21",
-    "next": "^15.5.3",
-    "react": "^19",
-    "react-dom": "^19",
+    "next": "^15.5.9",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "ts-node": "^10.9.2",
     "tss-react": "^4.9.19",
     "tsx": "^4.20.5"
